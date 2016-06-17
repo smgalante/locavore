@@ -7,31 +7,43 @@
   //Setting the map to the div 
   var element = document.getElementById('map');
   //creating the map object
-  var map = mapster.create(element, options);
+  var map = new google.maps.Map(element, options);
 
-  var marker = map.addMarker({
-    lat: 40,
-    lng: -74,
-    draggable: true,
-    // icon: 'https://lh6.googleusercontent.com/jKl8Ad4rBl499hBXFNh2k8lODStxrA9aLXuGMkSMNlRYuNG6ejUJ7rZ6l5rIMd5gIXiaAg=w1416-h658',
-    content: 'Farmers Market',  
-  });
-  var request = {
-    zip: '22203',
-    radius: '500',
-    query: 'restaurant'
-  };
-  function callback(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      var place = results[i];
-      createMarker(results[i]);
+    navigator.geolocation.getCurrentPosition(function(position){
+      console.log(position);
+    })
+
+  // var map = mapster.create(element, options);
+  // var marker = map.addMarker({
+  //   lat: 40,
+  //   lng: -74,
+  //   draggable: true,
+  //   // icon: 'https://lh6.googleusercontent.com/jKl8Ad4rBl499hBXFNh2k8lODStxrA9aLXuGMkSMNlRYuNG6ejUJ7rZ6l5rIMd5gIXiaAg=w1416-h658',
+  //   content: 'Farmers Market',  
+  // });
+  // var request = {
+  //   zip: '22203',
+  //   radius: '500',
+  //   query: 'restaurant'
+  //   types: ['store']
+  // };
+
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request, function(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        var place = results[i];
+        // If the request succeeds, draw the place location on
+        // the map as a marker, and register an event to handle a
+        // click on the marker.
+        var marker = new google.maps.Marker({
+          map: map,
+          position: place.geometry.location
+        });
+      }
     }
-  }
-}
+  });
 
-  service = new google.maps.places.PlacesService(map);
-  service.textSearch(request, callback);
 
 
   function getResults(zip) {
@@ -64,7 +76,6 @@
   }  
 
   getResults(22203);
-
 
     // map._on('click', function(){console.log('click')});
     // // creates markers on click
