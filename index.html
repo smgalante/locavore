@@ -29,9 +29,10 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <form class="navbar-form navbar-left" role="search" id="search">
         <div class="form-group">
+          <input id="pac-input" class="form-control" type="text" placeholder="Enter a location">
           <input type="text" class="form-control" id="userSearch" placeholder="Search a location">
         </div>
-        <button type="search" class="btn btn-default">Search</button>
+        <button type="submit" class="btn btn-default" id="submit">Search</button>
         <button type="currentLocation" class="btn btn-default">Use Current Location</button>
       </form>
     </div><!-- /.navbar-collapse -->
@@ -51,6 +52,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQIZigb4sd4EIMVeDZ1jxdx8tH9QRyEM&libraries=places"></script>
   <!--Mapster Library-->
   <script src="assets/js/mapster.js"></script>
+  <script src="assets/js/farm.js"></script>
   <script src="assets/js/map-default-options.js"></script>
   <script src="assets/js/places.js"></script>
   <script src="assets/js/poc.js"></script>
