@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+# Locavore 
+This is our week 8/9 Group project.
+
 # locavore
 
 ## Instructions
@@ -20,3 +24,4 @@ Must use Bootstrap or Alternative CSS Framework
 Must be Deployed (Heroku or Firebase)
 
 Must have User Input Validation 
+>>>>>>> 77456de1cf8595309b7a8e4f0a432c0666612c69
