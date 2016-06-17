@@ -1,14 +1,9 @@
   #map {
     width: 100%;
-    height: 400px;
+    height: 500px;
     background-color: #CCC;
   }
 
-  #mapTest {
-    width: 100%;
-    height: 400px;
-    background-color: #CCC;
-  }
 
   .navbar{
     margin-bottom:0px;
