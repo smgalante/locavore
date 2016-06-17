@@ -1,99 +1,101 @@
-(function(window, google, mapster, $){
-  //firebase connection 
-  var firebase = new Firebase("https://arnoldleitestrcb.firebaseio.com/");
+(function(window, google, mapster, $) {
 
-  //map options
-  var options = mapster.MAP_DEFAULT_OPTIONS;
-  //Setting the map to the div 
-  var element = document.getElementById('map');
-  //creating the map object
-  var map = mapster.create(element, options);
+    var marketId = []; //returned from the API
+    var allLatlng = []; //returned from the API
+    var allMarkers = []; //returned from the API
+    var marketName = []; //returned from the API
+    var pos;
+    var userCords;
+    var tempMarkerHolder = [];
 
-  var marker = map.addMarker({
-    lat: 40,
-    lng: -74,
-    draggable: true,
-    // icon: 'https://lh6.googleusercontent.com/jKl8Ad4rBl499hBXFNh2k8lODStxrA9aLXuGMkSMNlRYuNG6ejUJ7rZ6l5rIMd5gIXiaAg=w1416-h658',
-    content: 'Farmers Market',  
-  });
-  var request = {
-    zip: '22203',
-    radius: '500',
-    query: 'restaurant'
-  };
-  function callback(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      var place = results[i];
-      createMarker(results[i]);
-    }
-  }
-}
+    var element = document.getElementById('map');
+    var options = mapster.MAP_DEFAULT_OPTIONS
 
-  service = new google.maps.places.PlacesService(map);
-  service.textSearch(request, callback);
+    var map = new google.maps.Map(element, options);
+    var location = new google.maps.LatLng(40.4794355, -74.4196301);
+    var service = new google.maps.places.PlacesService(map);
+
+    var request = {
+        location: location,
+        radius: '5000',
+        types: ['farmers market']
+    };
+
+    var infowindow = new google.maps.InfoWindow();
+   //  var input = document.getElementById('pac-input');
+   //  var autocomplete = new google.maps.places.Autocomplete(input);
+  	// autocomplete.bindTo('bounds', map);
 
 
-  function getResults(zip) {
-      // or
-      // function getResults(lat, lng) {
-      $.ajax({
-          type: "GET",
-          contentType: "application/json; charset=utf-8",
-          // submit a get request to the restful service zipSearch or locSearch.
-          url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + zip,
-          // or
-          // url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=" + lat + "&lng=" + lng,
-          dataType: 'jsonp',
-          jsonpCallback: 'searchResultsHandler'
-      }).done(function(e){
-        for (var key in e) {
-        console.log(e[key]);
-        var results = e[key];
-        for (var i = 0; i < results.length; i++) {
-            var result = results[i];
-            for (var key in result) {
-                //only do an alert on the first search result
-                if (i == 0) {
-                    console.log(result[key]);
+    $('#search').submit(function() {
+        var search = $('#userSearch').val();
+        var url = "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + search;
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: url,
+            dataType: 'jsonp',
+            success: function(data) {
+                var i = 0;
+                for (; i < data.results.length; i++) {
+                    marketId.push(data.results[i].id);
+                    marketName.push(data.results[i].marketname);
                 }
             }
-        }
-    }
-      });
-  }  
+        }).done(function(f){
+        	var i=0;
+        	for (; i<marketId.length; i++){
+        		$.ajax({
+        			type: 'GET',
+        			contentType: 'application/json; charset=utf-8',
+        			url: 'http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=' + marketId[i],
+        			dataType: 'jsonp',
+        			success: function(data){
+        				for(var k in data){
+        					var results = data[k].GoogleLink;
+        					var latLong = decodeURIComponent(results.substring(results.indexOf("=")+1, results.lastIndexOf("(")));
+        					var split = latLong.split(',');
+        					var latitude = parseFloat(split[0]);
+							var longitude = parseFloat(split[1]);
+							myLatlng = new google.maps.LatLng(latitude,longitude);
+							allMarkers = new google.maps.Marker({
+								position: myLatlng,
+								map: map,
+								title: marketName[i],
+							})
+        				}
+        			},
+        			dataType: 'jsonp',
+        		});
+        	}
+        });
 
-  getResults(22203);
-
-
-    // map._on('click', function(){console.log('click')});
-    // // creates markers on click
-    // map.addListener('click', function(e) {
-    //   var image = 'https://lh6.googleusercontent.com/jKl8Ad4rBl499hBXFNh2k8lODStxrA9aLXuGMkSMNlRYuNG6ejUJ7rZ6l5rIMd5gIXiaAg=w1416-h658';
-    //   var marker = new google.maps.Marker({
-    //     position: {lat: e.latLng.lat(), lng: e.latLng.lng()},
-    //     map: map,
-    //     icon:'https://lh6.googleusercontent.com/jKl8Ad4rBl499hBXFNh2k8lODStxrA9aLXuGMkSMNlRYuNG6ejUJ7rZ6l5rIMd5gIXiaAg=w1416-h658',
-    //   });
-    //   marker.setMap(map);
-    //   firebase.push({lat: e.latLng.lat(), lng: e.latLng.lng()});
-    // });
-
-    // firebase code for when the user adds something to firebase
-    firebase.on("child_added", function(snapshot, prevChildKey) {
-    // Get latitude and longitude from the cloud.
-      var newPosition = snapshot.val();
-
-      // Create a google.maps.LatLng object for the position of the marker.
-      // A LatLng object literal (as above) could be used, but the heatmap
-      // in the next step requires a google.maps.LatLng object.
-      var latLng = new google.maps.LatLng(newPosition.lat, newPosition.lng);
-      // Place a marker at that loc ation.
-      var marker = map.addMarker({
-        lat: latLng.lat(),
-        lng: latLng.lng(),
-        map: map,
-        content: 'From FireBase! Farmers Market',
-      });
+        return false;
     });
-}(window, google, window.Mapster, $));
+
+    function createMarker(place) {
+        var placeLoc = place.geometry.location;
+        var marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent(place.name);
+            infowindow.open(map, this);
+            $('#picture').html(place.image)
+        });
+    }
+
+    service.nearbySearch(request, function(results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+                createMarker(results[i]);
+                console.log(results[i])
+            }
+        }
+    });
+
+
+
+}(window, google, window.Mapster, window.$));
