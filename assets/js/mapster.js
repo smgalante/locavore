@@ -1,3 +1,4 @@
+//THis is an IIEF that I want to store all our functions in, this may not work out for our project right now 
 (function(window, google){
   var Mapster = (function(){
     function Mapster(elements, options){
