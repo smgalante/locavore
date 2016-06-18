@@ -68,6 +68,7 @@
 							var longitude = parseFloat(split[1]);
 							//this is used for the google API request
 							myLatlng = new google.maps.LatLng(latitude,longitude);
+							console.log(data[k]);
 							allMarkers = new google.maps.Marker({
 								position: myLatlng,
 								map: map,
@@ -75,18 +76,53 @@
 							});	
 							//Where all the onclick should go for the modals
 							google.maps.event.addListener(allMarkers, 'click', function(){
+<<<<<<< HEAD
+								infowindow.setContent(address);
+								infowindow.open(map, this);
+							}) 
+							console.log(i);	
+=======
 									infowindow.setContent(address);
 									infowindow.open(map, this);
 							}) 
+>>>>>>> 7ee93c08427ed2113bb0dfdb707e4e1cee1e0dba
 							x++;        				}
         			},
         			dataType: 'jsonp',
         		})	
         	}
+        }).done(function(f){
+        	console.log(f);
         });
         return false;
     });
 
+<<<<<<< HEAD
+    // function createMarker(place) {
+    //     var placeLoc = place.geometry.location;
+    //     var marker = new google.maps.Marker({
+    //         map: map,
+    //         position: place.geometry.location
+    //     });
+
+    //     google.maps.event.addListener(marker, 'click', function() {
+    //         infowindow.setContent(place.name);
+    //         infowindow.open(map, this);
+    //         $('#picture').html(place.image)
+    //     });
+    // }
+
+    // service.nearbySearch(request, function(results, status) {
+    //     if (status == google.maps.places.PlacesServiceStatus.OK) {
+    //         for (var i = 0; i < results.length; i++) {
+    //             createMarker(results[i]);
+    //             console.log(results[i])
+    //         }
+    //     }
+    // });
+
+=======
+>>>>>>> 7ee93c08427ed2113bb0dfdb707e4e1cee1e0dba
 
 
 }(window, google, window.Mapster, window.$));
