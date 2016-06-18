@@ -28,38 +28,46 @@
 
     $('#search').submit(function() {
         var search = $('#userSearch').val();
+        //AMS Farmers Market Directory API URL 
         var url = "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + search;
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
             url: url,
             dataType: 'jsonp',
+            //This function is called when the ajax call is successful
             success: function(data) {
                 var i = 0;
                 for (; i < data.results.length; i++) {
+                	//pushing market name and ID to the arrays decalred above
                     marketId.push(data.results[i].id);
                     marketName.push(data.results[i].marketname);
                 }
             }
         }).done(function(f){
-        	var x=0;
+        	var x=0; //A counter for iterating through the arrays
         	var i=0;
         	for (; i<marketId.length; i++){
         		$.ajax({
         			type: 'GET',
         			contentType: 'application/json; charset=utf-8',
+        			//another AJAX call using the market ID's from the first AJAX call 
+        			//The Farmers Directory API does not have the farmers market lat lng openly available 
         			url: 'http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=' + marketId[i],
         			dataType: 'jsonp',
         			success: function(data){
         				for(var k in data){
+        					//The lat lng is embedded in the google linke found in the json object
+        					//The lat lng must be parsed from the link provided
         					var results = data[k].GoogleLink;
         					var address = data[k].Address;
         					var latLong = decodeURIComponent(results.substring(results.indexOf("=")+1, results.lastIndexOf("(")));
         					var split = latLong.split(',');
+        					//Latitude and Longitude is stored here: 
         					var latitude = parseFloat(split[0]);
 							var longitude = parseFloat(split[1]);
+							//this is used for the google API request
 							myLatlng = new google.maps.LatLng(latitude,longitude);
-							console.log(data[k]);
 							allMarkers = new google.maps.Marker({
 								position: myLatlng,
 								map: map,
@@ -67,8 +75,8 @@
 							});	
 							//Where all the onclick should go for the modals
 							google.maps.event.addListener(allMarkers, 'click', function(){
-								infowindow.setContent(address);
-								infowindow.open(map, this);
+									infowindow.setContent(address);
+									infowindow.open(map, this);
 							}) 
 							console.log(i);	
 							x++;        				}
