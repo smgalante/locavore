@@ -73,15 +73,34 @@
                             var longitude = parseFloat(split[1]);
                             //this is used for the google API request
                             myLatlng = new google.maps.LatLng(latitude,longitude);
+                            //store longlat 
+
+
                             allMarkers = new google.maps.Marker({
                                 position: myLatlng,
                                 map: map,
                                 title: marketName[x],
+
                             }); 
+
                             //Where all the onclick should go for the modals
                             google.maps.event.addListener(allMarkers, 'click', function(){
                                 infowindow.setContent(address);
                                 infowindow.open(map, this);
+                            var queryURL = "https://crossorigin.me/https://api.forecast.io/forecast/bb99aa4197f855238017a720be8d7577/" + latitude + "," + longitude;
+                            $.ajax({
+                                 url: queryURL,
+                                 method: 'GET',
+                                })
+                            
+                            .done(function(result) {
+                                bootbox.dialog({
+                                    title: name,
+                                    message: (result.currently.apparentTemperature),
+                                    onEscape: function(){},
+                                });
+                            })
+                            
                             }) 
                         
                             x++;}
