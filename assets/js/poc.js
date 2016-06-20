@@ -82,6 +82,7 @@
                             google.maps.event.addListener(allMarkers, 'click', function(){
                                 infowindow.setContent(address);
                                 infowindow.open(map, this);
+                                console.log(latitude, longitude)
                             }) 
                         
                             x++;}
@@ -94,8 +95,6 @@
         return false;
     });
 
-
-
     function geocodeAddress(geocoder, resultsMap) {
       var address = document.getElementById('userSearch').value;
       var postal;
@@ -105,9 +104,10 @@
           geocoder.geocode({'location':results[0].geometry.location}, function(zip, status){
             for(var x=0;x<zip.length;++x){
                 if(zip[x].types[0]=="postal_code"){
-                    console.log(zip[x].types[0])
-                  postal = zip[x].long_name;
-                  console.log(postal)
+                    console.log(zip[x].address_components[0].long_name);
+                    console.log(zip[x].types[x])
+                    postal = zip[x].long_name;
+                    console.log(postal)
                }
             }
           })

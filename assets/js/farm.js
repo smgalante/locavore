@@ -3,10 +3,10 @@
     function Farm(){
 
     }
-    Mapster.prototype = {
+    Farm.prototype = {
       
     }
-    return Mapster;
+    return Farm;
   }());
 
   Farm.init = function(){
