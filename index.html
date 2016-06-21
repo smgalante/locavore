@@ -17,7 +17,10 @@
 
 <body>
     <nav class="navbar navbar-default">
+    <div class="alert hidden" role="alert">
+    </div>
         <div class="container-fluid">
+
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -26,22 +29,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Locavore</a>
+                <img class="icon" src="assets/img/logo/farmersmarket-icon.png">
             </div>
+            <a class="navbar-brand" href="#">Locavore</a>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <form class="navbar-form navbar-left" role="search" id="search">
                     <div class="form-group">
                         <input type="text" class="form-control" id="userSearch" placeholder="Search a location">
                     </div>
-                    <button type="submit" class="btn btn-default" id="submit">Search</button>
-                    <button type="currentLocation" class="btn btn-default">Use Current Location</button>
                     <div class="input-group date" id="datetimepicker">
                         <input type='text' class="form-control" id="date" placeholder="Pick your date" />
                         <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
+                        <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
+                    <button type="submit" class="btn btn-default" id="submit">Search</button>
+                    <button type="currentLocation" class="btn btn-default">Use Current Location</button>
                 </form>
             </div>
             <!-- /.navbar-collapse -->
