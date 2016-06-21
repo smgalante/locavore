@@ -96,6 +96,11 @@
 
             }
         });
+        console.log('WHy is this happening first?')
+        console.log(marketId);
+        console.log(allLatlng);
+        console.log(allMarkers);
+
         return false;
     });
 
@@ -121,7 +126,8 @@
                 });
             }
         });
-        postal = postal;
+        console.log(postal)
+        return postal;
         // return postal;
     }
 
