@@ -7,7 +7,7 @@
     var date; //Returned from Date form
     var pos;
     var userCords;
-    var postal;//the code that we will be doing the search with 
+    var postal; //the code that we will be doing the search with 
 
     var element = document.getElementById('map');
     var options = mapster.MAP_DEFAULT_OPTIONS
@@ -52,10 +52,10 @@
                     marketName.push(data.results[i].marketname);
                 }
             }
-        }).done(function(f){
-            var x=0; //A counter for iterating through the arrays
-            var i=0;
-            for (; i<marketId.length; i++){
+        }).done(function(f) {
+            var x = 0; //A counter for iterating through the arrays
+            var i = 0;
+            for (; i < marketId.length; i++) {
                 $.ajax({
                     type: 'GET',
                     contentType: 'application/json; charset=utf-8',
@@ -63,31 +63,33 @@
                     //The Farmers Directory API does not have the farmers market lat lng openly available 
                     url: 'http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=' + marketId[i],
                     dataType: 'jsonp',
-                    success: function(data){
-                        for(var k in data){
+                    success: function(data) {
+                        for (var k in data) {
                             //The lat lng is embedded in the google linke found in the json object
                             //The lat lng must be parsed from the link provided
                             var results = data[k].GoogleLink;
                             var address = data[k].Address;
-                            var latLong = decodeURIComponent(results.substring(results.indexOf("=")+1, results.lastIndexOf("(")));
+                            var latLong = decodeURIComponent(results.substring(results.indexOf("=") + 1, results.lastIndexOf("(")));
                             var split = latLong.split(',');
                             //Latitude and Longitude is stored here: 
                             var latitude = parseFloat(split[0]);
                             var longitude = parseFloat(split[1]);
                             //this is used for the google API request
-                            myLatlng = new google.maps.LatLng(latitude,longitude);
+                            myLatlng = new google.maps.LatLng(latitude, longitude);
                             allMarkers = new google.maps.Marker({
                                 position: myLatlng,
                                 map: map,
                                 title: marketName[x],
-                            }); 
+                                icon: 'assets/img/mapicons/farmstand.png'
+                            });
                             //Where all the onclick should go for the modals
-                            google.maps.event.addListener(allMarkers, 'click', function(){
+                            google.maps.event.addListener(allMarkers, 'click', function() {
                                 infowindow.setContent(address);
                                 infowindow.open(map, this);
-                            }) 
-                        
-                            x++;}
+                            })
+
+                            x++;
+                        }
                     },
                     dataType: 'jsonp',
                 })
@@ -99,28 +101,28 @@
 
 
 
-    function geocodeAddress(geocoder, resultsMap ) {
-        var code;
+    function geocodeAddress(geocoder, resultsMap) {
         var address = document.getElementById('userSearch').value;
-        geocoder.geocode({'address': address}, function(results, status) {
+        geocoder.geocode({ 'address': address }, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
                 resultsMap.setCenter(results[0].geometry.location);
                 resultsMap.setZoom(11);
-                geocoder.geocode({'location':results[0].geometry.location}, function(zip, status){
-                    for(var x=0;x<zip.length;++x){
-                        if(zip[x].types[0]=="postal_code"){
-                          code = zip[x].address_components[0].long_name;
+                geocoder.geocode({ 'location': results[0].geometry.location }, function(zip, status) {
+                    for (var x = 0; x < zip.length; ++x) {
+                        if (zip[x].types[0] == "postal_code") {
+                            postal = zip[x].address_components[0].long_name;
                         }
                     }
                 })
             } else {
-              bootbox.alert({
-                title:'Geocode was not successful for the following reason: ',
-                message: status});
+                bootbox.alert({
+                    title: 'Geocode was not successful for the following reason: ',
+                    message: status
+                });
             }
-          });
-        postal = code;
-          // return postal;
+        });
+        postal = postal;
+        // return postal;
     }
 
     $('#date').datepicker({
