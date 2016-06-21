@@ -7,6 +7,7 @@
     var date; //Returned from Date form
     var pos;
     var userCords;
+    var postal;//the code that we will be doing the search with 
 
     var element = document.getElementById('map');
     var options = mapster.MAP_DEFAULT_OPTIONS
@@ -29,11 +30,13 @@
 
 
     $('#search').submit(function() {
-        
-        var search = $('#userSearch').val().trim();
+        // var search = $('#userSearch').val().trim();
         geocodeAddress(geocoder, map);
+        // postal = geocodeAddress(geocoder, map);
+        console.log(postal);
+        // console.log(postal);
         //AMS Farmers Market Directory API URL 
-        var url = "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + search;
+        var url = "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + postal;
         date = $('#date').val();
         $.ajax({
             type: "GET",
@@ -82,7 +85,6 @@
                             google.maps.event.addListener(allMarkers, 'click', function(){
                                 infowindow.setContent(address);
                                 infowindow.open(map, this);
-                                console.log(latitude, longitude)
                             }) 
                         
                             x++;}
@@ -95,26 +97,30 @@
         return false;
     });
 
-    function geocodeAddress(geocoder, resultsMap) {
-      var address = document.getElementById('userSearch').value;
-      var postal;
-      geocoder.geocode({'address': address}, function(results, status) {
-        if (status === google.maps.GeocoderStatus.OK) {
-          resultsMap.setCenter(results[0].geometry.location);
-          geocoder.geocode({'location':results[0].geometry.location}, function(zip, status){
-            for(var x=0;x<zip.length;++x){
-                if(zip[x].types[0]=="postal_code"){
-                    console.log(zip[x].address_components[0].long_name);
-                    console.log(zip[x].types[x])
-                    postal = zip[x].long_name;
-                    console.log(postal)
-               }
+
+
+    function geocodeAddress(geocoder, resultsMap ) {
+        var code;
+        var address = document.getElementById('userSearch').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                resultsMap.setCenter(results[0].geometry.location);
+                resultsMap.setZoom(11);
+                geocoder.geocode({'location':results[0].geometry.location}, function(zip, status){
+                    for(var x=0;x<zip.length;++x){
+                        if(zip[x].types[0]=="postal_code"){
+                          code = zip[x].address_components[0].long_name;
+                        }
+                    }
+                })
+            } else {
+              bootbox.alert({
+                title:'Geocode was not successful for the following reason: ',
+                message: status});
             }
-          })
-        } else {
-          alert('Geocode was not successful for the following reason: ' + status);
-        }
-      });
+          });
+        postal = code;
+          // return postal;
     }
 
     $('#date').datepicker({
