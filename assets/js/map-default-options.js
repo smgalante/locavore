@@ -17,7 +17,7 @@
       featureType: 'transit.station',
       stylers: [{ visibility: 'off' }]  // Turn off bus stations, train stations, etc.
     }],
-    disableDoubleClickZoom: true,
+    disableDoubleClickZoom: false,
     zoomControlOptions: {
       style: google.maps.ZoomControlStyle.DEFAULT,
     }
