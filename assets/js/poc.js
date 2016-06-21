@@ -1,4 +1,26 @@
 (function(window, google, mapster, $, farm) {
+    var crd; //user coordinates
+
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    };
+
+    function success(pos) {
+        crd = pos.coords;
+
+        console.log('Your current position is:');
+        console.log('Latitude : ' + crd.latitude);
+        console.log('Longitude: ' + crd.longitude);
+        console.log('More or less ' + crd.accuracy + ' meters.');
+    };
+
+    function error(err) {
+      console.warn('ERROR(' + err.code + '): ' + err.message);
+    };
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
 
     var marketId = []; //returned from the API
     var allLatlng = []; //returned from the API
@@ -14,6 +36,13 @@
 
     var map = new google.maps.Map(element, options);
     var service = new google.maps.places.PlacesService(map);
+    var geocoder = new google.maps.Geocoder();
+
+    if(crd){
+        map.setCenter({lat: crd.latitude, lng: crd.longitude})
+    }
+
+
 
     var request = {
         location: location,
@@ -21,7 +50,7 @@
         types: ['']
     };
 
-    var geocoder = new google.maps.Geocoder();
+
 
     var infowindow = new google.maps.InfoWindow();
     var input = document.getElementById('pac-input');
@@ -31,7 +60,8 @@
 
     $('#search').submit(function() {
         // var search = $('#userSearch').val().trim();
-        geocodeAddress(geocoder, map);
+        geocodeAddress(geocoder, map);        
+
         // postal = geocodeAddress(geocoder, map);
         console.log(postal);
         // console.log(postal);
@@ -67,8 +97,11 @@
                         for (var k in data) {
                             //The lat lng is embedded in the google linke found in the json object
                             //The lat lng must be parsed from the link provided
+                            console.log(data[k]);
                             var results = data[k].GoogleLink;
                             var address = data[k].Address;
+                            var schedule = data[k].Schedule;
+                            var produce = data[k].Products
                             var latLong = decodeURIComponent(results.substring(results.indexOf("=") + 1, results.lastIndexOf("(")));
                             var split = latLong.split(',');
                             //Latitude and Longitude is stored here: 
@@ -84,6 +117,10 @@
                             });
                             //Where all the onclick should go for the modals
                             google.maps.event.addListener(allMarkers, 'click', function() {
+                                bootbox.alert({
+                                    title: marketName[x],
+                                    message: address + '<br/>' + schedule + '<br/>' + produce,
+                                })
                                 infowindow.setContent(address);
                                 infowindow.open(map, this);
                             })
@@ -96,10 +133,6 @@
 
             }
         });
-        console.log('WHy is this happening first?')
-        console.log(marketId);
-        console.log(allLatlng);
-        console.log(allMarkers);
 
         return false;
     });
@@ -128,7 +161,6 @@
         });
         console.log(postal)
         return postal;
-        // return postal;
     }
 
     $('#date').datepicker({
