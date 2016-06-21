@@ -11,8 +11,12 @@ a.navbar-brand{
     border-radius: 0;
 }
 
+.navbar-header{
+	margin-top:5px;
+}
+
 .navbar-brand{
-	padding:0 0 0 15px;
+	padding:;
 }
 
 .navbar-default{
@@ -27,15 +31,21 @@ a.navbar-brand{
 .icon{
 	height:40px;
 }
+
 .form-control{
 	color:#fff;
 	border:none;
+	border-radius:0;
 	/*background-color: #00b69a;*/
 }
 
+.input-group-addon{
+	border-radius:0px;
+}
 .btn-default{
 	color:#fff;
 	background-color: #23475F;
+	border-radius:0;
 	border:none;
 }
 input{
