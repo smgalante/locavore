@@ -1,59 +1,72 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Locavore</title>
-  <!-- Bootstrap -->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-  <!--reset.css-->
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-  <!--Custom styles for the website-->
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-  <!--FireBase CDN-->
-  <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
+    <title>Locavore</title>
+    <!-- Bootstrap -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!--reset.css-->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!--Custom styles for the website-->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!--datepicker style sheet-->
+    <link rel="stylesheet" type="text/css" href="assets/css/datepicker.css">
+    <!--FireBase CDN-->
+    <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
 </head>
-<body> 
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Locavore</a>
-    </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form class="navbar-form navbar-left" role="search" id="search">
-        <div class="form-group">
-          <input id="pac-input" class="form-control" type="text" placeholder="Enter a location">
-          <input type="text" class="form-control" id="userSearch" placeholder="Search a location">
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Locavore</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <form class="navbar-form navbar-left" role="search" id="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="userSearch" placeholder="Search a location">
+                    </div>
+                    <button type="submit" class="btn btn-default" id="submit">Search</button>
+                    <button type="currentLocation" class="btn btn-default">Use Current Location</button>
+                    <div class="input-group date" id="datetimepicker">
+                        <input type='text' class="form-control" id="date" placeholder="Pick your date" />
+                        <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-        <button type="submit" class="btn btn-default" id="submit">Search</button>
-        <button type="currentLocation" class="btn btn-default">Use Current Location</button>
-      </form>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-<!--Where the map will appear-->
-<div id="map">
-</div>
-
-  <!--jquery-->
-  <script src="assets/js/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="assets/js/bootstrap.min.js"></script>
-  <!--Google Maps-->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQIZigb4sd4EIMVeDZ1jxdx8tH9QRyEM&libraries=places"></script>
-  <!--Mapster Library-->
-  <script src="assets/js/mapster.js"></script>
-  <script src="assets/js/farm.js"></script>
-  <script src="assets/js/map-default-options.js"></script>
-  <script src="assets/js/places.js"></script>
-  <script src="assets/js/poc.js"></script>
-
+        <!-- /.container-fluid -->
+    </nav>
+    <!--Where the map will appear-->
+    <div id="map">
+    </div>
+    <!--jquery-->
+    <script src="assets/js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!--Google Maps-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQIZigb4sd4EIMVeDZ1jxdx8tH9QRyEM&libraries=places"></script>
+    <!--Mapster Library-->
+    <script src="assets/js/mapster.js"></script>
+    <script src="assets/js/datepicker.js"></script>
+    <script src="assets/js/farm.js"></script>
+    <script src="assets/js/map-default-options.js"></script>
+    <script src="assets/js/places.js"></script>
+    <script src="assets/js/poc.js"></script>
+    <!--Bootbox Library-->
+    <script src="assets/js/bootbox.min.js"></script>
+    <script src="assets/js/box.js"></script>
 </body>
+
 </html>
