@@ -48,9 +48,14 @@ a.navbar-brand{
 }
 .btn-default{
 	color:#fff;
-	background-color: #23475F;
+	background-color: #2c84cc;
 	border-radius:0;
 	border:none;
+}
+
+.btn-default:hover{
+	background-color:#23475f;
+	color:#fff;
 }
 input{
 
