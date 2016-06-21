@@ -18,6 +18,7 @@
 
     function error(err) {
       console.warn('ERROR(' + err.code + '): ' + err.message);
+      $('.alert').addClass('alert-danger').text('ERROR(' + err.code + '): ' + err.message);
     };
 
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -97,7 +98,6 @@
                         for (var k in data) {
                             //The lat lng is embedded in the google linke found in the json object
                             //The lat lng must be parsed from the link provided
-                            console.log(data[k]);
                             var results = data[k].GoogleLink;
                             var address = data[k].Address;
                             var schedule = data[k].Schedule;
@@ -119,7 +119,7 @@
                             google.maps.event.addListener(allMarkers, 'click', function() {
                                 bootbox.alert({
                                     title: marketName[x],
-                                    message: address + '<br/>' + schedule + '<br/>' + produce,
+                                    message: '<h3>Address:</h3><br/>'+ address + '<br/>' + '<h3>Schedule:</h3><br/>'  + schedule + '<br/>' + '<h3>Products:</h3><br/>'+ produce,
                                 })
                                 infowindow.setContent(address);
                                 infowindow.open(map, this);

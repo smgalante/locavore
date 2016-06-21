@@ -2,6 +2,48 @@ html, body{
   height:100%;
 }
 
+a.navbar-brand{
+	background-image: url('..');
+}
+
+.navbar{
+	border: none;
+    border-radius: 0;
+}
+
+.navbar-brand{
+	padding:0 0 0 15px;
+}
+
+.navbar-default{
+	color:#fff;
+
+	background-color: #4C9D2F;
+}
+
+.navbar-default .navbar-brand{
+	color:#fff;
+}
+.icon{
+	height:40px;
+}
+.form-control{
+	color:#fff;
+	border:none;
+	/*background-color: #00b69a;*/
+}
+
+.btn-default{
+	color:#fff;
+	background-color: #23475F;
+	border:none;
+}
+input{
+	color:#fff;
+}
+
+
+
 #map {
   width: 100%;
   height: 100%;
@@ -12,4 +54,12 @@ html, body{
 .navbar{
   margin-bottom:0px;
 
+}
+
+.show{
+	display: block;
+}
+
+.hidden{
+	display: none;
 }
