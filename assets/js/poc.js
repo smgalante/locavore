@@ -168,5 +168,4 @@
     });
 
 
-
 }(window, google, window.Mapster, window.$));
