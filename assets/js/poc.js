@@ -18,7 +18,8 @@
 
     function error(err) {
       console.warn('ERROR(' + err.code + '): ' + err.message);
-      $('.alert').addClass('alert-danger').text('ERROR(' + err.code + '): ' + err.message);
+      bootbox.alert({title:'ERROR:',
+      message: err.code + ') '+ err.message});
     };
 
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -108,6 +109,7 @@
                                 var schedule = data[k].Schedule;
                                 //figure out if it is open here:
                                 var name = marketName[x];
+                                var id = x
 
                                 var produce = data[k].Products
                                 var latLong = decodeURIComponent(results.substring(results.indexOf("=") + 1, results.lastIndexOf("(")));
@@ -128,7 +130,7 @@
                                 google.maps.event.addListener(allMarkers, 'click', function() {
                                     bootbox.alert({
                                         title: name,
-                                        message: '<h3>Address:</h3><br/>'+ address + '<br/>' + '<h3>Schedule:</h3><br/>'  + schedule + '<br/>' + '<h3>Products:</h3><br/>'+ produce,
+                                        message: '<h3>Address:</h3><br/>'+ address + '<br/>' + '<h3>Schedule:</h3><br/>'  + schedule + '<br/>' + '<h3>Products:</h3><br/>'+ produce + '<h3>ID:</h3><br/>' + id + '<h3>Market Name</h3>' + marketName[id],
                                     })
                                     infowindow.setContent(address);
                                     infowindow.open(map, this);
