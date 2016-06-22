@@ -8,7 +8,7 @@
     },
     disableDefaultUI: true,
     zoom: 8,
-    scrollwheel: false,
+    scrollwheel: true,
     styles: [{
       featureType: 'poi',
       stylers: [{ visibility: 'off' }]  // Turn off points of interest.
