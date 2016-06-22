@@ -18,8 +18,8 @@
 
     function error(err) {
       console.warn('ERROR(' + err.code + '): ' + err.message);
-      bootbox.alert({title:'ERROR:',
-      message: err.code + ') '+ err.message});
+      // bootbox.alert({title:'ERROR:',
+      // message: err.code + ') '+ err.message});
     };
 
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -32,7 +32,7 @@
     var pos;
     var userCords;
     var postal; //the code that we will be doing the search with 
-    var days = ['mon', 'tues', 'weds', 'thurs', 'fri', 'sat', 'sun'];
+    var days = ['Mon', 'Tues', 'Weds', 'Thurs', 'Fri', 'Sat', 'Sun'];
 
     console.log('initial postal', postal);
 
@@ -69,12 +69,15 @@
 
         geocodeAddress(geocoder, map, function(postal) {
 
-            // postal = geocodeAddress(geocoder, map);
-            console.log('in #search submit after', postal);
-            // console.log(postal);
-            //AMS Farmers Market Directory API URL 
             var url = "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + postal;
-            date = $('#date').val();
+
+            if($('#date').val()){
+                date = $('#date').val().trim();
+                console.log(date);
+
+            }else{
+                date = moment().format('ddd').trim();
+            }
             $.ajax({
                 type: "GET",
                 contentType: "application/json; charset=utf-8",
@@ -111,6 +114,14 @@
                                 var name = marketName[x];
                                 var id = x
 
+                                if(new RegExp(date).test(schedule)){
+                                    console.log('true');
+                                    icon = 'assets/img/mapicons/farmstand.png';
+                                }else{
+                                    console.log('false');
+                                    icon = 'assets/img/mapicons/farmstand_red.png'
+                                }
+
                                 var produce = data[k].Products
                                 var latLong = decodeURIComponent(results.substring(results.indexOf("=") + 1, results.lastIndexOf("(")));
                                 var split = latLong.split(',');
@@ -123,7 +134,7 @@
                                     position: myLatlng,
                                     map: map,
                                     title: name,
-                                    icon: 'assets/img/mapicons/farmstand.png',
+                                    icon: icon,
                                     text: name,
                                 });
                                 //Where all the onclick should go for the modals
@@ -176,7 +187,8 @@
     }
 
     $('#date').datepicker({
-        format: "dd/mm/yyyy"
+        format: "D", 
+        defaultViewDate: 'today', 
     });
 
 
