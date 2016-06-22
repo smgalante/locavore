@@ -18,8 +18,8 @@
 
     function error(err) {
       console.warn('ERROR(' + err.code + '): ' + err.message);
-      bootbox.alert({title:'ERROR:',
-      message: err.code + ') '+ err.message});
+      // bootbox.alert({title:'ERROR:',
+      // message: err.code + ') '+ err.message});
     };
 
     navigator.geolocation.getCurrentPosition(success, error, options);
