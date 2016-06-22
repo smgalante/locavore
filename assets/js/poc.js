@@ -148,9 +148,7 @@
                                 google.maps.event.addListener(allMarkers, 'click', function() {
                                     var weatherData;
                                     fetchWeather(latitude, longitude, function(weatherData){
-                                        var name = weatherData.currently.icon.toUpperCase().replace(/-/g, '_');
                                         skycons.set(document.getElementById('icon2'), weatherData.currently.icon);
-                                        console.log(Skycons.name)
                                         skycons.play();
                                         $('#temp').text(weatherData.currently.temperature)
                                         $('.modal-title').text(name);

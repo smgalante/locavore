@@ -73,6 +73,12 @@ a.navbar-brand{
 	border-color: #336c9b;
 }
 
+.btn-default:active{
+	background-color: #254e70;
+	color:#fff;
+	border-color: #000;
+}
+
 input{
 
 }
@@ -115,5 +121,4 @@ input{
 
 canvas{
 	width:100%;
-
 }
