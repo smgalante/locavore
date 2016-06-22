@@ -9,19 +9,17 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!--Custom styles for the website-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <link rel="shortcut icon" type="image/png" href="assets/img/logo/favicon.ico"/>
+    <link rel="shortcut icon" type="image/png" href="assets/img/logo/favicon.ico" />
     <!--datepicker style sheet-->
     <link rel="stylesheet" type="text/css" href="assets/css/datepicker.css">
     <link href='https://fonts.googleapis.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'>
-
 </head>
 
 <body>
     <nav class="navbar navbar-default box-shadow nav-img">
-    <div class="alert hidden" role="alert">
-    </div>
+        <div class="alert hidden" role="alert">
+        </div>
         <div class="container">
-
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <img class="icon" src="assets/img/logo/farmersmarket-icon-trans.png">
@@ -40,9 +38,9 @@
                         </span>
                     </div>
                     <button type="submit" class="btn btn-default" id="submit">Search</button>
-                    <button type="currentLocation" class="btn btn-default">Use Current Location</button>
+                    <button type="currentLocation" class="btn btn-default"><span class="glyphicon glyphicon-screenshot"></span> Use Current Location</button>
                     <button type="button" class="btn btn-primary btn-default" data-toggle="modal" data-target="#myModal">
-                      Launch demo modal
+                        Launch demo modal
                     </button>
                 </form>
             </div>
@@ -55,38 +53,53 @@
     </div>
     <!--my modal starts HERE!!!!-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" >
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Famers Markets</h4>
-          </div>
-          <div class="modal-body">
-            <h3>Weather:</h3>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <canvas id="icon2"></canvas>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Famers Markets</h4>
+                </div>
+                <div class="modal-body">
+                    <h3>Weather:</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <canvas id="icon2"></canvas>
+                            <h1 id="temperature"><span id="temp">32.33</span>&deg</h1>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Percipitation:</h4>
+                            <h3 id="percipitation data">23%</h3>
+                            <h4>Humidity:</h4>
+                            <h3 id="humidity data">23%</h3>
+                            <h4>Wind:</h4>
+                            <h3 id="wind data">23%</h3>
+                        </div>
+                    </div>
+                    <p id="report">Light rain tomorrow through Tuesday, with temperatures rising to 90°F on Tuesday.</p>
+                    <h3>Address:</h3>
+                    <p id="address">1 West Park Avenue, Savannah, Georgia, 31401</p>
+                    <h3>Schedule:</h3>
+                    <p id="schedule">01/18/2014 to 12/27/2014 Sat: 9:00 AM-1:00 PM;</p>
+                    <h3>Products:</h3>
+                    <p id="produce">Baked goods; Cheese and/or dairy products; Cut flowers; Eggs; Fish and/or seafood; Fresh fruit and vegetables; Fresh and/or dried herbs; Honey; Canned or preserved fruits, vegetables, jams, jellies, preserves, salsas, pickles, dried fruit, etc.; Meat; Nuts; Plants in containers; Poultry</p>
+                </div>
+                <div class="modal-footer">
+                    <infomation>
+                        <span class="temperature"></span>
+                        <span class="sunrise"></span>
+                        <span class="sunset"></span>
+                        <span class="wind"></span>
+                        <span class="precip_prob"></span>
+                        <span class="humidity"></span>
+                    </infomation>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h1 id="temperature"><span id="temp">32.33</span>&deg</h1>
-                </div>
-            </div>
-            <h3>Address:</h3>
-            <p id="address">1 West Park Avenue, Savannah, Georgia, 31401</p>
-            <h3>Schedule:</h3>
-            <p id="schedule">01/18/2014 to 12/27/2014 Sat: 9:00 AM-1:00 PM;</p>
-            <h3>Products:</h3>
-            <p id="produce">Baked goods; Cheese and/or dairy products; Cut flowers; Eggs; Fish and/or seafood; Fresh fruit and vegetables; Fresh and/or dried herbs; Honey; Canned or preserved fruits, vegetables, jams, jellies, preserves, salsas, pickles, dried fruit, etc.; Meat; Nuts; Plants in containers; Poultry</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->  
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
     <!--jquery-->
     <script src="assets/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

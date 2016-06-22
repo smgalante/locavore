@@ -62,7 +62,7 @@ function round(number, points) {
  *
  */
 function currentWeather() {
-	
+	console.log('current weather')
 	// Animated Skycon for current conditions
 	skycons.set("weatherCurrent", weatherData.currently.icon);    // Skycon Icons by Dark Sky
 	
