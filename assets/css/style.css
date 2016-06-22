@@ -108,3 +108,12 @@ input{
 	border-radius: 0px;
 }	
 
+#temperature{
+	text-align:center;
+	font-size: 80px;
+}
+
+canvas{
+	width:100%;
+
+}
