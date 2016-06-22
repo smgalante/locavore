@@ -47,8 +47,8 @@
     var service = new google.maps.places.PlacesService(map);
     var geocoder = new google.maps.Geocoder();
     var skycons = new Skycons({"color": "#4C9D2F"});
-    skycons.add(document.getElementById('icon2'), Skycons.PARTLY_CLOUDY_DAY);
-    skycons.play();
+    // skycons.add(document.getElementById('icon2'), Skycons.PARTLY_CLOUDY_DAY);
+    // skycons.play();
 
     if(crd){
         map.setCenter({lat: crd.latitude, lng: crd.longitude})
@@ -148,8 +148,14 @@
                                 google.maps.event.addListener(allMarkers, 'click', function() {
                                     var weatherData;
                                     fetchWeather(latitude, longitude, function(weatherData){
-                                        skycons.add(document.getElementById('icon2'), Skycons.PARTLY_CLOUDY_DAY);
+                                        var name = weatherData.currently.icon.toUpperCase().replace(/-/g, '_');
+                                        skycons.set(document.getElementById('icon2'), weatherData.currently.icon);
+                                        console.log(Skycons.name)
                                         skycons.play();
+                                        $('.modal-title').text(name);
+                                        $('#address').text(address);
+                                        $('#schedule').text(schedule);
+                                        $('#produce').text(produce);
                                          $('#myModal').modal('show');
                                         // bootbox.alert({
                                         // title: name,
