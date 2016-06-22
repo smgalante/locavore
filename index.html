@@ -13,6 +13,7 @@
     <!--datepicker style sheet-->
     <link rel="stylesheet" type="text/css" href="assets/css/datepicker.css">
     <link href='https://fonts.googleapis.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'>
+
 </head>
 
 <body>
@@ -23,12 +24,6 @@
 
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 <img class="icon" src="assets/img/logo/farmersmarket-icon.png">
             </div>
             <a class="navbar-brand" href="#">Locavore</a>
@@ -46,6 +41,9 @@
                     </div>
                     <button type="submit" class="btn btn-default" id="submit">Search</button>
                     <button type="currentLocation" class="btn btn-default">Use Current Location</button>
+                    <button type="button" class="btn btn-primary btn-default" data-toggle="modal" data-target="#myModal">
+                      Launch demo modal
+                    </button>
                 </form>
             </div>
             <!-- /.navbar-collapse -->
@@ -55,6 +53,39 @@
     <!--Where the map will appear-->
     <div id="map">
     </div>
+    <!--my modal starts HERE!!!!-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" >
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Famers Markets</h4>
+          </div>
+          <div class="modal-body">
+            <h3>Weather:</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>32 &deg</h1>
+                </div>
+                <div class="col-md-6">
+                    <canvas id="icon2" width="128" height="128"></canvas>
+                </div>
+            </div>
+            <h3>Address:</h3>
+            <p id="address">1 West Park Avenue, Savannah, Georgia, 31401</p>
+            <h3>Schedule:</h3>
+            <p id="schedule">01/18/2014 to 12/27/2014 Sat: 9:00 AM-1:00 PM;</p>
+            <h3>Products:</h3>
+            <p id="produce">Baked goods; Cheese and/or dairy products; Cut flowers; Eggs; Fish and/or seafood; Fresh fruit and vegetables; Fresh and/or dried herbs; Honey; Canned or preserved fruits, vegetables, jams, jellies, preserves, salsas, pickles, dried fruit, etc.; Meat; Nuts; Plants in containers; Poultry</p>
+            <canvas id="icon2" width="128" height="128"></canvas>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->  
     <!--jquery-->
     <script src="assets/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -68,6 +99,8 @@
     <script src="assets/js/farm.js"></script>
     <script src="assets/js/map-default-options.js"></script>
     <script src="assets/js/places.js"></script>
+    <script src="assets/js/forecast.js"></script>
+    <script src="assets/js/skycons.js"></script>
     <script src="assets/js/poc.js"></script>
     <!--Bootbox Library-->
     <script src="assets/js/bootbox.min.js"></script>

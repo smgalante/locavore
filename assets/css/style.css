@@ -24,7 +24,7 @@ a.navbar-brand{
 	padding:;
 }
 
-.navbar-default{
+.navbar-default, .modal-header{
 	color:#fff;
 
 	background-color: #4C9D2F;
@@ -103,3 +103,8 @@ input{
 	-moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
 	box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
 }
+
+.modal-content {
+	border-radius: 0px;
+}	
+
