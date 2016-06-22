@@ -113,13 +113,15 @@
                                 //figure out if it is open here:
                                 var name = marketName[x];
                                 var id = x
-
-                                if(new RegExp(date).test(schedule)){
-                                    console.log('true');
-                                    icon = 'assets/img/mapicons/farmstand.png';
+                                if(schedule.trim() == '<br> <br> <br>' ){
+                                    icon = 'assets/img/mapicons/farmstand_blue.png' 
                                 }else{
-                                    console.log('false');
-                                    icon = 'assets/img/mapicons/farmstand_red.png'
+                                    if(new RegExp(date).test(schedule)){
+                                        icon = 'assets/img/mapicons/farmstand.png';
+                                    }else{
+                                        console.log(name, schedule)   
+                                        icon = 'assets/img/mapicons/farmstand_red.png'
+                                    }
                                 }
 
                                 var produce = data[k].Products
@@ -141,7 +143,7 @@
                                 google.maps.event.addListener(allMarkers, 'click', function() {
                                     bootbox.alert({
                                         title: name,
-                                        message: '<h3>Address:</h3><br/>'+ address + '<br/>' + '<h3>Schedule:</h3><br/>'  + schedule + '<br/>' + '<h3>Products:</h3><br/>'+ produce + '<h3>ID:</h3><br/>' + id + '<h3>Market Name</h3>' + marketName[id],
+                                        message: '<h3>Address:</h3><br/>'+ address + '<br/>' + '<h3>Schedule:</h3><br/>'  + schedule + '<br/>' + '<h3>Products:</h3><br/>'+ produce + '<h3>Website:</h3><br/> <a href="'+results+'">'+marketName[id]+'</a>',
                                     })
                                     infowindow.setContent(address);
                                     infowindow.open(map, this);
@@ -172,7 +174,6 @@
                     for (var x = 0; x < zip.length; ++x) {
                         if (zip[x].types[0] == "postal_code") {
                             postal = zip[x].address_components[0].long_name;
-                            console.log('in loop', postal);
                         }
                     }
                     callback(postal);
