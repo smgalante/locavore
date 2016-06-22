@@ -47,8 +47,8 @@
     var service = new google.maps.places.PlacesService(map);
     var geocoder = new google.maps.Geocoder();
     var skycons = new Skycons({"color": "#4C9D2F"});
-    // skycons.add(document.getElementById('icon2'), Skycons.PARTLY_CLOUDY_DAY);
-    // skycons.play();
+    skycons.add(document.getElementById('icon2'), Skycons.PARTLY_CLOUDY_DAY);
+    skycons.play();
 
     if(crd){
         map.setCenter({lat: crd.latitude, lng: crd.longitude})
@@ -148,34 +148,19 @@
                                 google.maps.event.addListener(allMarkers, 'click', function() {
                                     var weatherData;
                                     fetchWeather(latitude, longitude, function(weatherData){
-                                        var name = weatherData.currently.icon.toUpperCase().replace(/-/g, '_');
                                         skycons.set(document.getElementById('icon2'), weatherData.currently.icon);
-                                        console.log(Skycons.name)
                                         skycons.play();
+                                        $('#temp').text(weatherData.currently.temperature)
                                         $('.modal-title').text(name);
                                         $('#address').text(address);
                                         $('#schedule').text(schedule);
                                         $('#produce').text(produce);
                                          $('#myModal').modal('show');
-                                        // bootbox.alert({
-                                        // title: name,
-                                        // message: '<h3>Address:</h3><br/>'+ address + '<br/>' + '<h3>Schedule:</h3><br/>'  + schedule + '<br/>' + '<h3>Products:</h3><br/>'+ produce + '<h3>Website:</h3><br/> <a href="'+results+'">'+marketName[id]+'</a><br/><h3>Weather</h3>'+weatherData.daily.summary+'<canvas id="icon2" width="128" height="128"></canvas>',
-                                        // })
                                         infowindow.setContent(address);
                                         infowindow.open(map, this);
 
 
                                     });
-                                    // $.ajax({
-                                    //     url: FORECAST_URL + FORECAST_API + '/' + latitude + ',' + longitude + "?units=auto",
-                                    //     // url: 'https://api.forecast.io/forecast/e5f3060a8bf3ccb2d4c8b46edd003429/37.8267,-122.423',
-                                    //     method: 'GET',
-                                    //     dataType:'json',
-
-                                    // }).done(function(forecast){
-                                    //     console.log(forecast);
-                                    // })
-
 
                                 })
 
