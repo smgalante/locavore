@@ -39,6 +39,10 @@ a.navbar-brand{
 	font-family: 'Quicksand', sans-serif;
 }
 
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover{
+	color:#fff;
+}
+
 .icon{
 	height:40px;
 }
