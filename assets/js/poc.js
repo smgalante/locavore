@@ -31,6 +31,7 @@
     var pos;
     var userCords;
     var postal; //the code that we will be doing the search with 
+    var days = ['mon', 'tues', 'weds', 'thurs', 'fri', 'sat', 'sun'];
 
     console.log('initial postal', postal);
 
@@ -105,6 +106,9 @@
                                 var results = data[k].GoogleLink;
                                 var address = data[k].Address;
                                 var schedule = data[k].Schedule;
+                                //figure out if it is open here:
+                                var name = marketName[x];
+
                                 var produce = data[k].Products
                                 var latLong = decodeURIComponent(results.substring(results.indexOf("=") + 1, results.lastIndexOf("(")));
                                 var split = latLong.split(',');
@@ -116,13 +120,14 @@
                                 allMarkers = new google.maps.Marker({
                                     position: myLatlng,
                                     map: map,
-                                    title: marketName[x],
-                                    icon: 'assets/img/mapicons/farmstand.png'
+                                    title: name,
+                                    icon: 'assets/img/mapicons/farmstand.png',
+                                    text: name,
                                 });
                                 //Where all the onclick should go for the modals
                                 google.maps.event.addListener(allMarkers, 'click', function() {
                                     bootbox.alert({
-                                        title: marketName[x],
+                                        title: name,
                                         message: '<h3>Address:</h3><br/>'+ address + '<br/>' + '<h3>Schedule:</h3><br/>'  + schedule + '<br/>' + '<h3>Products:</h3><br/>'+ produce,
                                     })
                                     infowindow.setContent(address);
@@ -142,7 +147,6 @@
 
         return false;
     });
-
 
 
     function geocodeAddress(geocoder, resultsMap, callback) {
