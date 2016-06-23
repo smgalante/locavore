@@ -9,27 +9,20 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!--Custom styles for the website-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="shortcut icon" type="image/png" href="assets/img/logo/favicon.ico" />
     <!--datepicker style sheet-->
     <link rel="stylesheet" type="text/css" href="assets/css/datepicker.css">
-    <!--FireBase CDN-->
-    <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-    <nav class="navbar navbar-default box-shadow">
-    <div class="alert hidden" role="alert">
-    </div>
+    <nav class="navbar navbar-default box-shadow nav-img">
+        <div class="alert hidden" role="alert">
+        </div>
         <div class="container">
-
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <img class="icon" src="assets/img/logo/farmersmarket-icon.png">
+                <img class="icon" src="assets/img/logo/farmersmarket-icon-trans.png">
             </div>
             <a class="navbar-brand" href="#">Locavore</a>
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -45,7 +38,10 @@
                         </span>
                     </div>
                     <button type="submit" class="btn btn-default" id="submit">Search</button>
-                    <button type="currentLocation" class="btn btn-default">Use Current Location</button>
+                    <button type="currentLocation" class="btn btn-default"><span class="glyphicon glyphicon-screenshot"></span> Use Current Location</button>
+                    <button type="button" class="btn btn-primary btn-default" data-toggle="modal" data-target="#welcomeModal">
+                        Launch demo modal
+                    </button>
                 </form>
             </div>
             <!-- /.navbar-collapse -->
@@ -55,12 +51,97 @@
     <!--Where the map will appear-->
     <div id="map">
     </div>
+    <!--MODALS-->
+    <!--my modal starts HERE!!!!-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <!--title-->
+                    <h4 class="modal-title">Famers Markets</h4>
+                </div>
+                <div class="modal-body">
+                    <h3>Weather:</h3>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <canvas id="icon2"></canvas>
+                            <h1 id="temperature"><span id="temp">32.33</span>&deg</h1>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Precipitation:</h4>
+                            <h3 class="data" id="percipitation"></h3>
+                            <h4>Humidity:</h4>
+                            <h3 class="data" id="humidity"></h3>
+                            <h4>Wind:</h4>
+                            <h3 class="data" id="wind"></h3>
+                        </div>
+                    </div>
+                    <p id="report">Light rain tomorrow through Tuesday, with temperatures rising to 90°F on Tuesday.</p>
+                    <h3>Address:</h3>
+                    <p id="address">1 West Park Avenue, Savannah, Georgia, 31401</p>
+                    <h3>Schedule:</h3>
+                    <p id="schedule">01/18/2014 to 12/27/2014 Sat: 9:00 AM-1:00 PM;</p>
+                    <h3>Products:</h3>
+                    <p id="produce">Baked goods; Cheese and/or dairy products; Cut flowers; Eggs; Fish and/or seafood; Fresh fruit and vegetables; Fresh and/or dried herbs; Honey; Canned or preserved fruits, vegetables, jams, jellies, preserves, salsas, pickles, dried fruit, etc.; Meat; Nuts; Plants in containers; Poultry</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!--WELCOME MODAL STARTS HERE!!!!-->
+    <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <!--title-->
+                    <h4 class="modal-title"> Welcome to Locavore</h4>
+                </div>
+                <div class="modal-body">
+                    <h3>Weather:</h3>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <canvas id="icon2"></canvas>
+                            <h1 id="temperature"><span id="temp">32.33</span>&deg</h1>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Precipitation:</h4>
+                            <h3 class="data" id="percipitation"></h3>
+                            <h4>Humidity:</h4>
+                            <h3 class="data" id="humidity"></h3>
+                            <h4>Wind:</h4>
+                            <h3 class="data" id="wind"></h3>
+                        </div>
+                    </div>
+                    <p id="report">Light rain tomorrow through Tuesday, with temperatures rising to 90°F on Tuesday.</p>
+                    <h3>Address:</h3>
+                    <p id="address">1 West Park Avenue, Savannah, Georgia, 31401</p>
+                    <h3>Schedule:</h3>
+                    <p id="schedule">01/18/2014 to 12/27/2014 Sat: 9:00 AM-1:00 PM;</p>
+                    <h3>Products:</h3>
+                    <p id="produce">Baked goods; Cheese and/or dairy products; Cut flowers; Eggs; Fish and/or seafood; Fresh fruit and vegetables; Fresh and/or dried herbs; Honey; Canned or preserved fruits, vegetables, jams, jellies, preserves, salsas, pickles, dried fruit, etc.; Meat; Nuts; Plants in containers; Poultry</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <!-- /.modal -->
     <!--jquery-->
     <script src="assets/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="assets/js/bootstrap.min.js"></script>
     <!--Google Maps-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQIZigb4sd4EIMVeDZ1jxdx8tH9QRyEM&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.24&key=AIzaSyDAQIZigb4sd4EIMVeDZ1jxdx8tH9QRyEM&libraries=places"></script>
     <script src="assets/js/moment.js"></script>
     <!--Mapster Library-->
     <script src="assets/js/mapster.js"></script>
@@ -68,6 +149,8 @@
     <script src="assets/js/farm.js"></script>
     <script src="assets/js/map-default-options.js"></script>
     <script src="assets/js/places.js"></script>
+    <script src="assets/js/forecast.js"></script>
+    <script src="assets/js/skycons.js"></script>
     <script src="assets/js/poc.js"></script>
     <!--Bootbox Library-->
     <script src="assets/js/bootbox.min.js"></script>

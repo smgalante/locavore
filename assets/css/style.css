@@ -2,9 +2,24 @@ html, body{
   height:100%;
 }
 
+h3{
+	margin:1em 0;
+}
+
+p{
+	text-shadow: 0px 1px 0px #fff;
+	display:inline;
+	text-align: justify;
+}
+
+input{
+	background-color: #5ae281;
+}
+
 a.navbar-brand{
 	background-image: url('..');
 }
+
 
 .navbar{
 	border: none;
@@ -24,47 +39,60 @@ a.navbar-brand{
 	padding:;
 }
 
-.navbar-default{
+.navbar-default, .modal-header{
 	color:#fff;
-
 	background-color: #4C9D2F;
+	background-image: url('../img/bg/congruent_pentagon_custom.png');
+	
 }
 
 .navbar-default .navbar-brand{
 	color:#fff;
 }
+
+.navbar-brand{
+	font-size: 20px;
+	font-family: 'Quicksand', sans-serif;
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover{
+	color:#fff;
+}
+
 .icon{
 	height:40px;
 }
 
 .form-control{
 	border:none;
-	border-radius:0;
+	border-radius:2px;
 	/*background-color: #00b69a;*/
 }
 
 .input-group-addon{
-	border-radius:0px;
+	border-radius:2px;
 }
-.btn-default{
+.btn{
 	color:#fff;
 	background-color: #2c84cc;
-	border-radius:0;
+	border-radius:2px;
 	border-top-style:none;
 	border-right-style:none;
-	border-bottom-style: 1px solid;
+	border-bottom-style: 3px solid;
 	border-left-style:none;
 	border-color: #336c9b;
 }
 
-.btn-default:hover{
+.btn:hover{
 	background-color:#23475f;
 	color:#fff;
 	border-color: #336c9b;
 }
 
-input{
-
+.btn-default:active{
+	background-color: #254e70;
+	color:#fff;
+	border-color: #000;
 }
 
 #map {
@@ -92,4 +120,29 @@ input{
 	-webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
 	box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
+}
+
+.modal-header {
+	border-radius: 2px;
+}	
+
+#temperature{
+	text-align:center;
+	font-size: 80px;
+}
+.form-control{
+	border-bottom:1px solid #ccc;
+	box-shadow: inset 0 1px 3px rgba(0,0,0,.39);
+	border-radius:2px;
+}
+#data{
+	margin-bottom: 4em;
+
+}
+
+.modal-footer{
+	background-image: url('../img/bg/congruent_pentagon_bw.png');
+}
+canvas{
+	margin-top:2em;
 }

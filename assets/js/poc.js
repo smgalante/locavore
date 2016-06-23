@@ -1,5 +1,9 @@
-(function(window, google, mapster, $, farm) {
+(function(window, google, mapster, $, Skycons) {
+
+
     var crd; //user coordinates
+    var FORECAST_URL =  'https://api.forecast.io/forecast/';
+    var FORECAST_API =  'e5f3060a8bf3ccb2d4c8b46edd003429'; 
 
     var options = {
       enableHighAccuracy: true,
@@ -18,8 +22,6 @@
 
     function error(err) {
       console.warn('ERROR(' + err.code + '): ' + err.message);
-      // bootbox.alert({title:'ERROR:',
-      // message: err.code + ') '+ err.message});
     };
 
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -32,7 +34,7 @@
     var pos;
     var userCords;
     var postal; //the code that we will be doing the search with 
-    var days = ['mon', 'tues', 'weds', 'thurs', 'fri', 'sat', 'sun'];
+    var days = ['Mon', 'Tues', 'Weds', 'Thurs', 'Fri', 'Sat', 'Sun'];
 
     console.log('initial postal', postal);
 
@@ -42,6 +44,9 @@
     var map = new google.maps.Map(element, options);
     var service = new google.maps.places.PlacesService(map);
     var geocoder = new google.maps.Geocoder();
+    var skycons = new Skycons({"color": "#4C9D2F"});
+    skycons.add(document.getElementById('icon2'), Skycons.PARTLY_CLOUDY_DAY);
+    skycons.play();
 
     if(crd){
         map.setCenter({lat: crd.latitude, lng: crd.longitude})
@@ -55,7 +60,16 @@
         types: ['']
     };
 
-
+    // var temp = $('#temp')
+    // var percipitation = $('#percipitation');
+    // var humidity = $('#humidity');
+    // var wind = $('#wind');
+    // // $('#report').text(weatherData.daily.summary)
+    var modal_title = $('.modal-title');
+    var modal_address = $('#address');
+    var modal_schedule = $('#schedule');
+    var modal_produce = $('#produce');
+    
 
     var infowindow = new google.maps.InfoWindow();
     var input = document.getElementById('pac-input');
@@ -64,17 +78,17 @@
 
 
     $('#search').submit(function() {
-        // var search = $('#userSearch').val().trim();
-        console.log('in #search submit before', postal);
-
         geocodeAddress(geocoder, map, function(postal) {
 
-            // postal = geocodeAddress(geocoder, map);
-            console.log('in #search submit after', postal);
-            // console.log(postal);
-            //AMS Farmers Market Directory API URL 
             var url = "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + postal;
-            date = $('#date').val();
+
+            if($('#date').val()){
+                date = $('#date').val().trim();
+                console.log(date);
+
+            }else{
+                date = moment().format('ddd').trim();
+            }
             $.ajax({
                 type: "GET",
                 contentType: "application/json; charset=utf-8",
@@ -110,6 +124,15 @@
                                 //figure out if it is open here:
                                 var name = marketName[x];
                                 var id = x
+                                if(schedule.trim() == '<br> <br> <br>' ){
+                                    icon = 'assets/img/mapicons/farmstand_blue.png' 
+                                }else{
+                                    if(new RegExp(date).test(schedule)){
+                                        icon = 'assets/img/mapicons/farmstand.png';
+                                    }else{
+                                        icon = 'assets/img/mapicons/farmstand_red.png'
+                                    }
+                                }
 
                                 var produce = data[k].Products
                                 var latLong = decodeURIComponent(results.substring(results.indexOf("=") + 1, results.lastIndexOf("(")));
@@ -117,23 +140,42 @@
                                 //Latitude and Longitude is stored here: 
                                 var latitude = parseFloat(split[0]);
                                 var longitude = parseFloat(split[1]);
+
                                 //this is used for the google API request
                                 myLatlng = new google.maps.LatLng(latitude, longitude);
                                 allMarkers = new google.maps.Marker({
                                     position: myLatlng,
                                     map: map,
                                     title: name,
-                                    icon: 'assets/img/mapicons/farmstand.png',
+                                    icon: icon,
                                     text: name,
                                 });
                                 //Where all the onclick should go for the modals
+                                var key = 'e5f3060a8bf3ccb2d4c8b46edd003429'
                                 google.maps.event.addListener(allMarkers, 'click', function() {
-                                    bootbox.alert({
-                                        title: name,
-                                        message: '<h3>Address:</h3><br/>'+ address + '<br/>' + '<h3>Schedule:</h3><br/>'  + schedule + '<br/>' + '<h3>Products:</h3><br/>'+ produce + '<h3>ID:</h3><br/>' + id + '<h3>Market Name</h3>' + marketName[id],
-                                    })
-                                    infowindow.setContent(address);
-                                    infowindow.open(map, this);
+                                    var weatherData;
+                                    fetchWeather(latitude, longitude, function(weatherData){
+                                        console.log('percip: '+weatherData.daily.data[0].precipProbability)
+                                        console.log('huidity: '+ weatherData.daily.data[0].humidity * 100)
+                                        skycons.set(document.getElementById('icon2'), weatherData.currently.icon);
+                                        skycons.play();
+                                        $('#temp').text(weatherData.currently.temperature);
+                                        $('#percipitation').text(weatherData.daily.data[0].precipProbability + '%');
+                                        $('#humidity').text(Math.floor(weatherData.daily.data[0].humidity * 100) + '%');
+                                        $('#wind').text(round(weatherData.currently.windSpeed) + ' kts', 1000);
+                                        // $('#report').text(weatherData.daily.summary)
+                                        modal_title.text(name);
+                                        modal_address.text(address);
+                                        modal_schedule.html(schedule);
+                                        modal_produce.text(produce);
+                                         $('#myModal').modal('show');
+
+                                        infowindow.setContent(address);
+                                        infowindow.open(map, this);
+
+
+                                    });
+
                                 })
 
                                 x++;
@@ -149,7 +191,8 @@
 
         return false;
     });
-
+    skycons.add(document.getElementById("icon1"), Skycons.CLEAR_DAY);
+    skycons.play();
 
     function geocodeAddress(geocoder, resultsMap, callback) {
         var address = document.getElementById('userSearch').value;
@@ -161,7 +204,6 @@
                     for (var x = 0; x < zip.length; ++x) {
                         if (zip[x].types[0] == "postal_code") {
                             postal = zip[x].address_components[0].long_name;
-                            console.log('in loop', postal);
                         }
                     }
                     callback(postal);
@@ -176,8 +218,24 @@
     }
 
     $('#date').datepicker({
-        format: "dd/mm/yyyy"
+        format: "D", 
+        defaultViewDate: 'today', 
     });
 
+    function fetchWeather(latitude, longitude, callback) {
 
-}(window, google, window.Mapster, window.$));
+    $.ajax({
+            url: FORECAST_URL + FORECAST_API + '/' + latitude + ',' + longitude + "?units=auto",
+            dataType: "jsonp",
+            success: function (weather) {  
+                weatherData = weather;
+                console.log(weatherData);
+                callback(weatherData);
+            }
+        });    
+
+}
+
+
+
+}(window, google, window.Mapster, window.$, Skycons));
