@@ -22,8 +22,6 @@
 
     function error(err) {
       console.warn('ERROR(' + err.code + '): ' + err.message);
-      // bootbox.alert({title:'ERROR:',
-      // message: err.code + ') '+ err.message});
     };
 
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -157,12 +155,13 @@
                                 google.maps.event.addListener(allMarkers, 'click', function() {
                                     var weatherData;
                                     fetchWeather(latitude, longitude, function(weatherData){
-                                        console.log(weatherData.daily.data[0].humidity * 100)
+                                        console.log('percip: '+weatherData.daily.data[0].precipProbability)
+                                        console.log('huidity: '+ weatherData.daily.data[0].humidity * 100)
                                         skycons.set(document.getElementById('icon2'), weatherData.currently.icon);
                                         skycons.play();
                                         $('#temp').text(weatherData.currently.temperature);
                                         $('#percipitation').text(weatherData.daily.data[0].precipProbability + '%');
-                                        $('#humidity').text((weatherData.daily.data[0].humidity * 100) + '%');
+                                        $('#humidity').text(Math.floor(weatherData.daily.data[0].humidity * 100) + '%');
                                         $('#wind').text(round(weatherData.currently.windSpeed) + ' kts', 1000);
                                         // $('#report').text(weatherData.daily.summary)
                                         modal_title.text(name);
