@@ -12,9 +12,14 @@ p{
 	text-align: justify;
 }
 
+input{
+	background-color: #5ae281;
+}
+
 a.navbar-brand{
 	background-image: url('..');
 }
+
 
 .navbar{
 	border: none;
@@ -133,6 +138,10 @@ a.navbar-brand{
 #data{
 	margin-bottom: 4em;
 
+}
+
+.modal-footer{
+	background-image: url('../img/bg/congruent_pentagon_bw.png');
 }
 canvas{
 	margin-top:2em;
