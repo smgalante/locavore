@@ -39,7 +39,7 @@
                     </div>
                     <button type="submit" class="btn btn-default" id="submit">Search</button>
                     <button type="currentLocation" class="btn btn-default"><span class="glyphicon glyphicon-screenshot"></span> Use Current Location</button>
-                    <button type="button" class="btn btn-primary btn-default" data-toggle="modal" data-target="#myModal">
+                    <button type="button" class="btn btn-primary btn-default" data-toggle="modal" data-target="#welcomeModal">
                         Launch demo modal
                     </button>
                 </form>
@@ -51,12 +51,14 @@
     <!--Where the map will appear-->
     <div id="map">
     </div>
+    <!--MODALS-->
     <!--my modal starts HERE!!!!-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <!--title-->
                     <h4 class="modal-title">Famers Markets</h4>
                 </div>
                 <div class="modal-body">
@@ -91,6 +93,48 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+    <!--WELCOME MODAL STARTS HERE!!!!-->
+    <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <!--title-->
+                    <h4 class="modal-title"> Welcome to Locavore</h4>
+                </div>
+                <div class="modal-body">
+                    <h3>Weather:</h3>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <canvas id="icon2"></canvas>
+                            <h1 id="temperature"><span id="temp">32.33</span>&deg</h1>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Precipitation:</h4>
+                            <h3 class="data" id="percipitation"></h3>
+                            <h4>Humidity:</h4>
+                            <h3 class="data" id="humidity"></h3>
+                            <h4>Wind:</h4>
+                            <h3 class="data" id="wind"></h3>
+                        </div>
+                    </div>
+                    <p id="report">Light rain tomorrow through Tuesday, with temperatures rising to 90°F on Tuesday.</p>
+                    <h3>Address:</h3>
+                    <p id="address">1 West Park Avenue, Savannah, Georgia, 31401</p>
+                    <h3>Schedule:</h3>
+                    <p id="schedule">01/18/2014 to 12/27/2014 Sat: 9:00 AM-1:00 PM;</p>
+                    <h3>Products:</h3>
+                    <p id="produce">Baked goods; Cheese and/or dairy products; Cut flowers; Eggs; Fish and/or seafood; Fresh fruit and vegetables; Fresh and/or dried herbs; Honey; Canned or preserved fruits, vegetables, jams, jellies, preserves, salsas, pickles, dried fruit, etc.; Meat; Nuts; Plants in containers; Poultry</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <!-- /.modal -->
     <!--jquery-->
     <script src="assets/js/jquery.min.js"></script>
