@@ -137,6 +137,9 @@ a.navbar-brand{
 
 .modal-header {
 	border-radius: 2px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+	border-style: none;
 }	
 
 #temperature{
@@ -168,8 +171,8 @@ canvas{
 #text-center{
 	text-align: center;
 }
-#currentTime{
 
+#currentTime{
 	color:#fff;
 }
 ul{
