@@ -180,7 +180,7 @@ ul{
 	font-family: 'Quicksand', sans-serif;
 	text-align: left;
 	background-image: url('../img/bg/congruent_pentagon_bw.png');
-	padding: 0em 1em 1em 0em;
+	padding: 0em 1em 2em 1em;
 	position:fixed ;
 	bottom:30px;
 	right: 30px;
@@ -188,4 +188,10 @@ ul{
 	border-color: #ccc;
 	border-width: 1px;
 	border-style: solid;
+}
+ul{
+	padding:0px;
+}
+.bootbox-body{
+	padding:2em 0;
 }
