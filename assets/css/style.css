@@ -140,6 +140,11 @@ a.navbar-brand{
 
 }
 
+#map img {
+	margin:0px;
+	padding:0px;
+}
+
 .modal-footer{
 	background-image: url('../img/bg/congruent_pentagon_bw.png');
 }
