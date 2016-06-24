@@ -1,5 +1,7 @@
 (function(window, google, mapster, $, Skycons) {
-    $(window).load(function(){
+    
+    $(window).load(function()
+{
         $('#welcomeModal').modal('show');
     })
 
