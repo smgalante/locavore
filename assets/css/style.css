@@ -151,3 +151,7 @@ a.navbar-brand{
 canvas{
 	margin-top:2em;
 }
+
+.intro{
+	text-align: right;
+}
