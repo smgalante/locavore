@@ -1,4 +1,7 @@
 (function(window, google, mapster, $, Skycons) {
+    $(window).load(function(){
+        $('#welcomeModal').modal('show');
+    })
 
 
     var crd; //user coordinates
@@ -258,8 +261,8 @@
                     });
                 } else {
                     bootbox.alert({
-                        title: 'Geocode was not successful for the following reason: ',
-                        message: status
+                        title: 'No correct results were found: ',
+                        message: 'Please enter a valid address or zipcode'
                     });
                 }
             });
