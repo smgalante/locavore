@@ -66,11 +66,6 @@
         types: ['']
     };
 
-    // var temp = $('#temp')
-    // var percipitation = $('#percipitation');
-    // var humidity = $('#humidity');
-    // var wind = $('#wind');
-    // // $('#report').text(weatherData.daily.summary)
     var modal_title = $('.modal-title');
     var modal_address = $('#address');
     var modal_schedule = $('#schedule');
@@ -170,7 +165,7 @@
                                             skycons.set(document.getElementById('icon2'), weatherData.currently.icon);
                                             skycons.play();
                                             $('#temp').html(weatherData.currently.temperature+ '&deg');
-                                            $('#percipitation').text((weatherData.daily.data[0].precipProbability * 100) + '%');
+                                            $('#percipitation').text(Math.floor(weatherData.daily.data[0].precipProbability * 100) + '%');
                                             $('#humidity').text(Math.floor(weatherData.daily.data[0].humidity * 100) + '%');
                                             $('#wind').text(round(weatherData.currently.windSpeed) + ' kts', 1000);
                                             // $('#report').text(weatherData.daily.summary)
@@ -184,7 +179,7 @@
                                             var i = moment(date.toString(), 'DD-MM-YYYY').format('d');
                                             var obj = weatherData.daily.data[i];                                                
                                             $('#temp').html('<h1>'+ obj.apparentTemperatureMin + '&deg' + ' - ' + obj.apparentTemperatureMax+ '&deg </h1>');
-                                            $('#percipitation').text(obj.precipProbability + '%');
+                                            $('#percipitation').text(Math.floor(obj.precipProbability * 100) + '%');
                                             $('#humidity').text(Math.floor(obj.humidity * 100) + '%');
                                             $('#wind').text(round(obj.windSpeed) + ' kts', 1000);
                                             $('#report').text(weatherData.daily.summary)
