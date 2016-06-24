@@ -15,6 +15,7 @@
         crd = pos.coords;
 
         console.log('Your current position is:');
+        console.log(crd)
         console.log('Latitude : ' + crd.latitude);
         console.log('Longitude: ' + crd.longitude);
         console.log('More or less ' + crd.accuracy + ' meters.');
@@ -76,6 +77,12 @@
     var autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.bindTo('bounds', map);
 
+    $('#currentLocation').on('click', function(){
+        console.log(crd.latitude + ', ' + crd.longitude);
+        console.log(crd)
+        return false;
+    })
+
 
     $('#search').submit(function() {
         geocodeAddress(geocoder, map, function(postal) {
@@ -125,10 +132,11 @@
                                 if (schedule.trim() == '<br> <br> <br>') {
                                     iconMarker = 'assets/img/mapicons/farmstand_blue.png'
                                 } else {
-                                    if (new RegExp(moment(date).format('ddd')).test(schedule)) {
+                                    if (new RegExp(moment(date, 'dd-mm-yyyy').format('ddd')).test(schedule)) {
                                         iconMarker = 'assets/img/mapicons/farmstand.png';
                                     } else {
                                         iconMarker = 'assets/img/mapicons/farmstand_red.png'
+                                        console.log(moment(date, 'dd-mm-yyyy').format('ddd'));
                                     }
                                 }
 
@@ -161,7 +169,7 @@
                                             skycons.set(document.getElementById('icon2'), weatherData.currently.icon);
                                             skycons.play();
                                             $('#temp').html(weatherData.currently.temperature+ '&deg');
-                                            $('#percipitation').text(weatherData.daily.data[0].precipProbability + '%');
+                                            $('#percipitation').text((weatherData.daily.data[0].precipProbability * 100) + '%');
                                             $('#humidity').text(Math.floor(weatherData.daily.data[0].humidity * 100) + '%');
                                             $('#wind').text(round(weatherData.currently.windSpeed) + ' kts', 1000);
                                             // $('#report').text(weatherData.daily.summary)
@@ -216,30 +224,54 @@
 
     function geocodeAddress(geocoder, resultsMap, callback) {
         var address = document.getElementById('userSearch').value;
-        geocoder.geocode({ 'address': address }, function(results, status) {
-            if (status === google.maps.GeocoderStatus.OK) {
-                resultsMap.setCenter(results[0].geometry.location);
-                resultsMap.setZoom(11);
-                geocoder.geocode({ 'location': results[0].geometry.location }, function(zip, status) {
-                    for (var x = 0; x < zip.length; ++x) {
-                        if (zip[x].types[0] == "postal_code") {
-                            postal = zip[x].address_components[0].long_name;
-                        }
+        if(crd){
+            var latlng = {lat: crd.latitude, lng: crd.longitude};
+            geocoder.geocode({'location': latlng}, function(results, status) {
+            resultsMap.setCenter(results[0].geometry.location);
+            resultsMap.setZoom(11);
+            geocoder.geocode({'location': results[0].geometry.location }, function(zip, status){
+                for (var x = 0; x < zip.length; ++x){
+                    console.log(zip[x].types[0]);
+                    if (zip[x].types[0] == "postal_code") {
+                        postal = zip[x].address_components[0].long_name;
+                        console.log(zip[x].address_components[0].long_name);
                     }
-                    callback(postal);
-                });
-            } else {
-                bootbox.alert({
-                    title: 'Geocode was not successful for the following reason: ',
-                    message: status
-                });
-            }
-        });
+                }
+                callback(postal);
+            });
+
+            console.log(results[0].geometry.location); 
+            })
+        }else{
+
+            geocoder.geocode({ 'address': address,  }, function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    resultsMap.setZoom(11);
+                    geocoder.geocode({ 'location': results[0].geometry.location }, function(zip, status) {
+                        for (var x = 0; x < zip.length; ++x) {
+                            if (zip[x].types[0] == "postal_code") {
+                                postal = zip[x].address_components[0].long_name;
+                            }
+                        }
+                        callback(postal);
+                    });
+                } else {
+                    bootbox.alert({
+                        title: 'Geocode was not successful for the following reason: ',
+                        message: status
+                    });
+                }
+            });
+        }
     }
+
 
     $('#date').datepicker({
         format: "dd-mm-yyyy",
         defaultViewDate: 'today',
+        statDate: '0d',
+        endDate: '+7d'
     });
 
     function fetchWeather(latitude, longitude, callback) {
