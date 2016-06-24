@@ -4,11 +4,11 @@ var styles = [{"featureType":"administrative","elementType":"all","stylers":[{"v
     
   mapster.MAP_DEFAULT_OPTIONS = {
     center: {
-      lat: 40, 
-      lng: -74
+      lat: 39.5, 
+      lng: -98.35
     },
     disableDefaultUI: true,
-    zoom: 8,
+    zoom: 5,
     scrollwheel: true,
     styles: [{
       featureType: 'poi',
