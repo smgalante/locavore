@@ -2,13 +2,13 @@
 
 
     var crd; //user coordinates
-    var FORECAST_URL =  'https://api.forecast.io/forecast/';
-    var FORECAST_API =  'e5f3060a8bf3ccb2d4c8b46edd003429'; 
+    var FORECAST_URL = 'https://api.forecast.io/forecast/';
+    var FORECAST_API = 'e5f3060a8bf3ccb2d4c8b46edd003429';
 
     var options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
     };
 
     function success(pos) {
@@ -21,7 +21,7 @@
     };
 
     function error(err) {
-      console.warn('ERROR(' + err.code + '): ' + err.message);
+        console.warn('ERROR(' + err.code + '): ' + err.message);
     };
 
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -34,7 +34,7 @@
     var pos;
     var userCords;
     var postal; //the code that we will be doing the search with 
-    var days = ['Mon', 'Tues', 'Weds', 'Thurs', 'Fri', 'Sat', 'Sun'];
+    // var days = ['Mon', 'Tues', 'Weds', 'Thurs', 'Fri', 'Sat', 'Sun'];
 
     console.log('initial postal', postal);
 
@@ -44,12 +44,12 @@
     var map = new google.maps.Map(element, options);
     var service = new google.maps.places.PlacesService(map);
     var geocoder = new google.maps.Geocoder();
-    var skycons = new Skycons({"color": "#4C9D2F"});
+    var skycons = new Skycons({ "color": "#4C9D2F" });
     skycons.add(document.getElementById('icon2'), Skycons.PARTLY_CLOUDY_DAY);
     skycons.play();
 
-    if(crd){
-        map.setCenter({lat: crd.latitude, lng: crd.longitude})
+    if (crd) {
+        map.setCenter({ lat: crd.latitude, lng: crd.longitude })
     }
 
 
@@ -69,7 +69,7 @@
     var modal_address = $('#address');
     var modal_schedule = $('#schedule');
     var modal_produce = $('#produce');
-    
+
 
     var infowindow = new google.maps.InfoWindow();
     var input = document.getElementById('pac-input');
@@ -82,12 +82,11 @@
 
             var url = "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + postal;
 
-            if($('#date').val()){
+            if ($('#date').val()) {
                 date = $('#date').val().trim();
-                console.log(date);
 
-            }else{
-                date = moment().format('ddd').trim();
+            } else {
+                date = moment().format('DD-MM-YYYY');
             }
             $.ajax({
                 type: "GET",
@@ -123,12 +122,12 @@
                                 //figure out if it is open here:
                                 var name = marketName[x];
                                 var id = x
-                                if(schedule.trim() == '<br> <br> <br>' ){
-                                    iconMarker = 'assets/img/mapicons/farmstand_blue.png' 
-                                }else{
-                                    if(new RegExp(date).test(schedule)){
+                                if (schedule.trim() == '<br> <br> <br>') {
+                                    iconMarker = 'assets/img/mapicons/farmstand_blue.png'
+                                } else {
+                                    if (new RegExp(moment(date).format('ddd')).test(schedule)) {
                                         iconMarker = 'assets/img/mapicons/farmstand.png';
-                                    }else{
+                                    } else {
                                         iconMarker = 'assets/img/mapicons/farmstand_red.png'
                                     }
                                 }
@@ -155,21 +154,41 @@
                                 //Where all the onclick should go for the modals
                                 var key = 'e5f3060a8bf3ccb2d4c8b46edd003429'
                                 google.maps.event.addListener(allMarkers, 'click', function() {
-                                    console.log('adding listener')
+
                                     var weatherData;
-                                    fetchWeather(latitude, longitude, function(weatherData){
-                                        skycons.set(document.getElementById('icon2'), weatherData.currently.icon);
-                                        skycons.play();
-                                        $('#temp').text(weatherData.currently.temperature);
-                                        $('#percipitation').text(weatherData.daily.data[0].precipProbability + '%');
-                                        $('#humidity').text(Math.floor(weatherData.daily.data[0].humidity * 100) + '%');
-                                        $('#wind').text(round(weatherData.currently.windSpeed) + ' kts', 1000);
-                                        // $('#report').text(weatherData.daily.summary)
-                                        modal_title.text(name);
-                                        modal_address.text(address);
-                                        modal_schedule.html(schedule);
-                                        modal_produce.text(produce);
-                                         $('#myModal').modal('show');
+                                    fetchWeather(latitude, longitude, function(weatherData) {
+                                        if(date == moment().format('DD-MM-YYYY')){
+                                            skycons.set(document.getElementById('icon2'), weatherData.currently.icon);
+                                            skycons.play();
+                                            $('#temp').html(weatherData.currently.temperature+ '&deg');
+                                            $('#percipitation').text(weatherData.daily.data[0].precipProbability + '%');
+                                            $('#humidity').text(Math.floor(weatherData.daily.data[0].humidity * 100) + '%');
+                                            $('#wind').text(round(weatherData.currently.windSpeed) + ' kts', 1000);
+                                            // $('#report').text(weatherData.daily.summary)
+                                            modal_title.text(name);
+                                            modal_address.text(address);
+                                            modal_schedule.html(schedule);
+                                            modal_produce.text(produce);
+                                            $('#myModal').modal('show');
+
+                                        } else {
+                                            console.log(date.toString());
+                                            var i = moment(date.toString(), 'DD-MM-YYYY').format('d');
+                                            console.log(i);
+                                            var obj = weatherData.daily.data[i];                                                
+                                            console.log(obj);
+                                            $('#temp').html('<h1>'+ obj.apparentTemperatureMin + '&deg' + ' - ' + obj.apparentTemperatureMax+ '&deg </h1>');
+                                            $('#percipitation').text(obj.precipProbability + '%');
+                                            $('#humidity').text(Math.floor(obj.humidity * 100) + '%');
+                                            $('#wind').text(round(obj.windSpeed) + ' kts', 1000);
+                                            $('#report').text(weatherData.daily.summary)
+                                            modal_title.text(name);
+                                            modal_address.text(address);
+                                            modal_schedule.html(schedule);
+                                            modal_produce.text(produce);
+                                            $('#myModal').modal('show');
+                                        }
+
 
                                         infowindow.setContent(address);
                                         infowindow.open(map, this);
@@ -188,7 +207,7 @@
                 }
             });
 
-        });        
+        });
 
         return false;
     });
@@ -219,24 +238,30 @@
     }
 
     $('#date').datepicker({
-        format: "D", 
-        defaultViewDate: 'today', 
+        format: "dd-mm-yyyy",
+        defaultViewDate: 'today',
     });
 
     function fetchWeather(latitude, longitude, callback) {
 
-    $.ajax({
+        $.ajax({
             url: FORECAST_URL + FORECAST_API + '/' + latitude + ',' + longitude + "?units=auto",
             dataType: "jsonp",
-            success: function (weather) {  
+            success: function(weather) {
                 weatherData = weather;
                 console.log(weatherData);
                 callback(weatherData);
             }
-        });    
+        });
 
-}
+    }
 
+    function clock(){
+        var time = moment().format('hh:mm:ss a');
+        $('#currentTime').text(time);
+        setTimeout(clock, 1000);
+    }
 
+    clock();
 
 }(window, google, window.Mapster, window.$, Skycons));

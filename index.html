@@ -39,10 +39,14 @@
                     </div>
                     <button type="submit" class="btn btn-default" id="submit">Search</button>
                     <button type="currentLocation" class="btn btn-default"><span class="glyphicon glyphicon-screenshot"></span> Use Current Location</button>
-                    <button type="button" class="btn btn-primary btn-default" data-toggle="modal" data-target="#welcomeModal">
+<!--                     <button type="button" class="btn btn-primary btn-default" data-toggle="modal" data-target="#welcomeModal">
                         Launch demo modal
-                    </button>
+                    </button> -->
                 </form>
+                <ul class="nav navbar-nav navbar-right">
+                   <li><a id="currentTime" href="#"></a></li>
+                </ul>
+
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -66,7 +70,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <canvas id="icon2"></canvas>
-                            <h1 id="temperature"><span id="temp">32.33</span>&deg</h1>
+                            <h1 id="temperature"><span id="temp">32.33</span></h1>
                         </div>
                         <div class="col-md-4">
                             <h4>Precipitation:</h4>
@@ -141,7 +145,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="assets/js/bootstrap.min.js"></script>
     <!--Google Maps-->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.2&key=AIzaSyDAQIZigb4sd4EIMVeDZ1jxdx8tH9QRyEM&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?&key=AIzaSyDAQIZigb4sd4EIMVeDZ1jxdx8tH9QRyEM&libraries=places"></script>
     <script src="assets/js/moment.js"></script>
     <!--Mapster Library-->
     <script src="assets/js/mapster.js"></script>
