@@ -14,7 +14,7 @@ p {
 }
 
 input {
-    background-color: #5ae281;
+    background-color: pink;
 }
 
 a.navbar-brand {
@@ -82,7 +82,7 @@ a.navbar-brand {
 .form-control {
     border: none;
     border-radius: 2px;
-    /*background-color: #00b69a;*/
+    background-color: #f2f2f2;
 }
 
 .input-group-addon {
