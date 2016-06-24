@@ -105,8 +105,7 @@
                 }
             }).done(function(f) {
                 var x = 0; //A counter for iterating through the arrays
-                var i = 0;
-                for (; i < marketId.length; i++) {
+                for (var i = 0; i < marketId.length; i++) {
                     $.ajax({
                         type: 'GET',
                         contentType: 'application/json; charset=utf-8',
@@ -125,12 +124,12 @@
                                 var name = marketName[x];
                                 var id = x
                                 if(schedule.trim() == '<br> <br> <br>' ){
-                                    icon = 'assets/img/mapicons/farmstand_blue.png' 
+                                    iconMarker = 'assets/img/mapicons/farmstand_blue.png' 
                                 }else{
                                     if(new RegExp(date).test(schedule)){
-                                        icon = 'assets/img/mapicons/farmstand.png';
+                                        iconMarker = 'assets/img/mapicons/farmstand.png';
                                     }else{
-                                        icon = 'assets/img/mapicons/farmstand_red.png'
+                                        iconMarker = 'assets/img/mapicons/farmstand_red.png'
                                     }
                                 }
 
@@ -141,22 +140,24 @@
                                 var latitude = parseFloat(split[0]);
                                 var longitude = parseFloat(split[1]);
 
+
                                 //this is used for the google API request
                                 myLatlng = new google.maps.LatLng(latitude, longitude);
+
                                 allMarkers = new google.maps.Marker({
                                     position: myLatlng,
                                     map: map,
                                     title: name,
-                                    icon: icon,
+                                    icon: iconMarker,
                                     text: name,
+                                    optimized: false,
                                 });
                                 //Where all the onclick should go for the modals
                                 var key = 'e5f3060a8bf3ccb2d4c8b46edd003429'
                                 google.maps.event.addListener(allMarkers, 'click', function() {
+                                    console.log('adding listener')
                                     var weatherData;
                                     fetchWeather(latitude, longitude, function(weatherData){
-                                        console.log('percip: '+weatherData.daily.data[0].precipProbability)
-                                        console.log('huidity: '+ weatherData.daily.data[0].humidity * 100)
                                         skycons.set(document.getElementById('icon2'), weatherData.currently.icon);
                                         skycons.play();
                                         $('#temp').text(weatherData.currently.temperature);
