@@ -17,18 +17,19 @@
     function success(pos) {
         crd = pos.coords;
 
-        console.log('Your current position is:');
-        console.log(crd)
-        console.log('Latitude : ' + crd.latitude);
-        console.log('Longitude: ' + crd.longitude);
-        console.log('More or less ' + crd.accuracy + ' meters.');
+        // console.log('Your current position is:');
+        // console.log(crd)
+        // console.log('Latitude : ' + crd.latitude);
+        // console.log('Longitude: ' + crd.longitude);
+        // console.log('More or less ' + crd.accuracy + ' meters.');
     };
 
     function error(err) {
-        console.warn('ERROR(' + err.code + '): ' + err.message);
+        // console.warn('ERROR(' + err.code + '): ' + err.message);
     };
 
-    navigator.geolocation.getCurrentPosition(success, error, options);
+
+    
 
     var marketId = []; //returned from the API
     var allLatlng = []; //returned from the API
@@ -40,7 +41,7 @@
     var postal; //the code that we will be doing the search with 
     // var days = ['Mon', 'Tues', 'Weds', 'Thurs', 'Fri', 'Sat', 'Sun'];
 
-    console.log('initial postal', postal);
+    
 
     var element = document.getElementById('map');
     var options = mapster.MAP_DEFAULT_OPTIONS
@@ -81,8 +82,6 @@
     autocomplete.bindTo('bounds', map);
 
     $('#currentLocation').on('click', function(){
-        console.log(crd.latitude + ', ' + crd.longitude);
-        console.log(crd)
         return false;
     })
 
@@ -94,7 +93,6 @@
 
             if ($('#date').val()) {
                 date = $('#date').val().trim();
-
             } else {
                 date = moment().format('DD-MM-YYYY');
             }
@@ -135,11 +133,10 @@
                                 if (schedule.trim() == '<br> <br> <br>') {
                                     iconMarker = 'assets/img/mapicons/farmstand_blue.png'
                                 } else {
-                                    if (new RegExp(moment(date, 'dd-mm-yyyy').format('ddd')).test(schedule)) {
+                                    if (new RegExp(moment(date, 'DD-MM-YYYY').format('ddd')).test(schedule)) {
                                         iconMarker = 'assets/img/mapicons/farmstand.png';
                                     } else {
                                         iconMarker = 'assets/img/mapicons/farmstand_red.png'
-                                        console.log(moment(date, 'dd-mm-yyyy').format('ddd'));
                                     }
                                 }
 
@@ -183,11 +180,8 @@
                                             $('#myModal').modal('show');
 
                                         } else {
-                                            console.log(date.toString());
                                             var i = moment(date.toString(), 'DD-MM-YYYY').format('d');
-                                            console.log(i);
                                             var obj = weatherData.daily.data[i];                                                
-                                            console.log(obj);
                                             $('#temp').html('<h1>'+ obj.apparentTemperatureMin + '&deg' + ' - ' + obj.apparentTemperatureMax+ '&deg </h1>');
                                             $('#percipitation').text(obj.precipProbability + '%');
                                             $('#humidity').text(Math.floor(obj.humidity * 100) + '%');
@@ -227,23 +221,19 @@
 
     function geocodeAddress(geocoder, resultsMap, callback) {
         var address = document.getElementById('userSearch').value;
-        if(crd){
+        if(crd && address == ''){
             var latlng = {lat: crd.latitude, lng: crd.longitude};
             geocoder.geocode({'location': latlng}, function(results, status) {
-            resultsMap.setCenter(results[0].geometry.location);
-            resultsMap.setZoom(11);
-            geocoder.geocode({'location': results[0].geometry.location }, function(zip, status){
-                for (var x = 0; x < zip.length; ++x){
-                    console.log(zip[x].types[0]);
-                    if (zip[x].types[0] == "postal_code") {
-                        postal = zip[x].address_components[0].long_name;
-                        console.log(zip[x].address_components[0].long_name);
+                resultsMap.setCenter(results[0].geometry.location);
+                resultsMap.setZoom(11);
+                geocoder.geocode({'location': results[0].geometry.location }, function(zip, status){
+                    for (var x = 0; x < zip.length; ++x){
+                        if (zip[x].types[0] == "postal_code") {
+                            postal = zip[x].address_components[0].long_name;
+                        }
                     }
-                }
-                callback(postal);
-            });
-
-            console.log(results[0].geometry.location); 
+                    callback(postal);
+                });
             })
         }else{
 
@@ -284,7 +274,6 @@
             dataType: "jsonp",
             success: function(weather) {
                 weatherData = weather;
-                console.log(weatherData);
                 callback(weatherData);
             }
         });
