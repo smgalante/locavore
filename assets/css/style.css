@@ -63,7 +63,7 @@ a.navbar-brand{
 	color:#fff;
 }
 
-.navbar-brand{
+.navbar-brand, {
 	font-size: 20px;
 	font-family: 'Quicksand', sans-serif;
 }
@@ -171,4 +171,21 @@ canvas{
 #currentTime{
 
 	color:#fff;
+}
+ul{
+	list-style-type: none;
+}
+
+.legend{
+	font-family: 'Quicksand', sans-serif;
+	text-align: left;
+	background-image: url('../img/bg/congruent_pentagon_bw.png');
+	padding: 0em 1em 1em 0em;
+	position:fixed ;
+	bottom:30px;
+	right: 30px;
+	border-radius:2px;
+	border-color: #ccc;
+	border-width: 1px;
+	border-style: solid;
 }

@@ -37,8 +37,6 @@
                     <button class="btn btn-default" id="submit" type="submit">Search</button>
                     <button class="btn btn-default" id="currentlocation"><span class="glyphicon glyphicon-screenshot"></span> Use Current Location
                     </button>
-                    <button class="btn btn-primary btn-default" data-target="#welcomeModal" data-toggle="modal" type="button">Launch demo modal
-                    </button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
@@ -52,6 +50,14 @@
     </nav>
     <!--Where the map will appear-->
     <div id="map">
+    </div>
+    <div class="legend box-shadow">
+        <h3 class="text-center">Legend</h3>
+        <ul>
+            <li><span><img src="assets/img/mapicons/farmstand.png"></span> Open Today</li>
+            <li><span><img src="assets/img/mapicons/farmstand_red.png"></span> Closed Today</li>
+            <li><span><img src="assets/img/mapicons/farmstand_blue.png"></span> No Information</li>
+        </ul>
     </div>
     <!--MODALS-->
     <!--my modal starts HERE!!!!-->
