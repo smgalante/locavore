@@ -152,12 +152,10 @@ canvas{
 	margin-top:2em;
 }
 
-<<<<<<< HEAD
+#text-center{
+	text-align: center;
+}
 #currentTime{
 
 	color:#fff;
-=======
-.intro{
-	text-align: right;
->>>>>>> d427af6264119acdfa957044644c2b8ec9ec13c8
 }
