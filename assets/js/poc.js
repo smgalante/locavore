@@ -235,6 +235,10 @@
         });    
 
 }
+$('#currentLoc').on('click', function(){
+    console.log(crd.latitude);
+    console.log(crd.longitude);
+})
 
 
 
