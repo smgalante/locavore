@@ -133,7 +133,7 @@
                                 if (schedule.trim() == '<br> <br> <br>') {
                                     iconMarker = 'assets/img/mapicons/farmstand_blue.png'
                                 } else {
-                                    if (new RegExp(moment(date, 'DD-MM-YYYY').format('ddd')).test(schedule)) {
+                                    if (new RegExp(moment(date, 'DD-MM-YYYY').format('ddd').toString().toLowerCase()).test(schedule.toString().toLowerCase())) {
                                         iconMarker = 'assets/img/mapicons/farmstand.png';
                                     } else {
                                         iconMarker = 'assets/img/mapicons/farmstand_red.png'
