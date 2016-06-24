@@ -20,6 +20,19 @@ a.navbar-brand{
 	background-image: url('..');
 }
 
+.no-padding{
+	padding:0px;
+}
+
+#modal-banner{
+	background-image: url('../img/food.jpg');
+	height:350px;
+}
+
+.modal-body{
+	padding-top: 0px;
+	padding-bottom:0px;
+}
 
 .navbar{
 	border: none;
