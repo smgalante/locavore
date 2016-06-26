@@ -164,7 +164,7 @@
                                         if(date == moment().format('DD-MM-YYYY')){
                                             skycons.set(document.getElementById('icon2'), weatherData.currently.icon);
                                             skycons.play();
-                                            $('#temp').html(weatherData.currently.temperature+ '&deg');
+                                            $('#temp').html(Math.floor(weatherData.currently.temperature )+ '&deg');
                                             $('#percipitation').text(Math.floor(weatherData.daily.data[0].precipProbability * 100) + '%');
                                             $('#humidity').text(Math.floor(weatherData.daily.data[0].humidity * 100) + '%');
                                             $('#wind').text(round(weatherData.currently.windSpeed) + ' kts', 1000);
@@ -178,7 +178,7 @@
                                         } else {
                                             var i = moment(date.toString(), 'DD-MM-YYYY').format('d');
                                             var obj = weatherData.daily.data[i];                                                
-                                            $('#temp').html('<h1>'+ obj.apparentTemperatureMin + '&deg' + ' - ' + obj.apparentTemperatureMax+ '&deg </h1>');
+                                            $('#temp').html('<h1> Lo: '+ Math.floor(obj.apparentTemperatureMin) + '&deg<br/>' + 'Hi: ' + Math.floor(obj.apparentTemperatureMax)+ '&deg </h1>');
                                             $('#percipitation').text(Math.floor(obj.precipProbability * 100) + '%');
                                             $('#humidity').text(Math.floor(obj.humidity * 100) + '%');
                                             $('#wind').text(round(obj.windSpeed) + ' kts', 1000);
