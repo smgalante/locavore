@@ -41,3 +41,8 @@ Must have User Input Validation
 #Challenges
 
 I found that using the Farmers Market Directory API to be very difficult. The api requires the user to first search with a zip code and then using the results to do another call for more information. This ist he only way you can get the latitude and longitude. Even then, you have to parse the lat lng from the google link they give you. In retrospect I think using the google map native search may have been even easier and probably more effective. If I had more time, I would go back and change that. Another issue with using the Farmers Market Directory was that the information is not up to date. Some of the schedules are missing and lots of them are from several years ago. 
+
+#Things to do in the future
+
+In the future I want to add google map directions. 
+I also want to 
